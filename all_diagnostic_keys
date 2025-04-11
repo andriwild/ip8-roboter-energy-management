@@ -1,0 +1,301 @@
+[INFO] [1744381586.354997125] [key_value_reader]: Key: dingo_node: Battery       Battery OK (SLA).
+[INFO] [1744381586.355085949] [key_value_reader]: Key: dingo_node: Current consumption   Current draw nominal.
+[INFO] [1744381586.355101128] [key_value_reader]: Key: dingo_node: General       Stop loop open, platform immobilized.
+[INFO] [1744381586.355111624] [key_value_reader]: Key: dingo_node: Power consumption     Running on battery.
+[INFO] [1744381586.355123367] [key_value_reader]: Key: dingo_node: Temperature   MCU temperature OK.
+[INFO] [1744381586.355132780] [key_value_reader]: Key: dingo_node: User voltage supplies         User supplies OK.
+[INFO] [1744381586.355142010] [key_value_reader]: Key: Battery Voltage (V)       14.0928
+[INFO] [1744381586.355151167] [key_value_reader]: Key: Total current (A)         3.57798
+[INFO] [1744381586.355160340] [key_value_reader]: Key: MCU uptime        1886724181 seconds
+[INFO] [1744381586.355169485] [key_value_reader]: Key: External stop status      absent
+[INFO] [1744381586.355178659] [key_value_reader]: Key: Run/stop status   stopped
+[INFO] [1744381586.355189818] [key_value_reader]: Key: Shore power connnected    
+[INFO] [1744381586.355199315] [key_value_reader]: Key: Battery connnected        
+[INFO] [1744381586.355212325] [key_value_reader]: Key: 12V user power nominal    
+[INFO] [1744381586.355222350] [key_value_reader]: Key: PCB temperature (C)       38.0432
+[INFO] [1744381586.355232610] [key_value_reader]: Key: MCU temperature (C)       26
+[INFO] [1744381586.355241819] [key_value_reader]: Key: 12V Supply (V)    11.9549
+[INFO] [1744381586.355250876] [key_value_reader]: Key: 5V Supply (V)     5.01128
+[INFO] [1744381586.355259962] [key_value_reader]: Key: dingo_node: Puma motor driver on: front_left_wheel with CAN ID (2)        'front_left_wheel' driver (2) has a bridge driver fault.
+[INFO] [1744381586.355271808] [key_value_reader]: Key: dingo_node: Puma motor driver on: front_right_wheel with CAN ID (3)       'front_right_wheel' driver (3) has a bridge driver fault.
+[INFO] [1744381586.355281468] [key_value_reader]: Key: dingo_node: Puma motor driver on: rear_left_wheel with CAN ID (4)         'rear_left_wheel' driver (4) has a bridge driver fault.
+[INFO] [1744381586.355290989] [key_value_reader]: Key: dingo_node: Puma motor driver on: rear_right_wheel with CAN ID (5)        'rear_right_wheel' driver (5) has a bridge driver fault.
+[INFO] [1744381586.355300456] [key_value_reader]: Key: Driver CAN ID     2
+[INFO] [1744381586.355309476] [key_value_reader]: Key: Driver Role       front_left_wheel
+[INFO] [1744381586.355318780] [key_value_reader]: Key: Driver Mode       Speed control
+[INFO] [1744381586.355327870] [key_value_reader]: Key: Input terminal voltage (V)        12.8047
+[INFO] [1744381586.355337233] [key_value_reader]: Key: Internal driver temperature (degC)        32.3789
+[INFO] [1744381586.355348310] [key_value_reader]: Key: Voltage as output to the motor (V)        0
+[INFO] [1744381586.355366597] [key_value_reader]: Key: Value of the auxiliary ADC (V)    0
+[INFO] [1744381586.355376092] [key_value_reader]: Key: Driver CAN ID     3
+[INFO] [1744381586.355385165] [key_value_reader]: Key: Driver Role       front_right_wheel
+[INFO] [1744381586.355394179] [key_value_reader]: Key: Driver Mode       Speed control
+[INFO] [1744381586.355403398] [key_value_reader]: Key: Input terminal voltage (V)        12.6289
+[INFO] [1744381586.355414848] [key_value_reader]: Key: Internal driver temperature (degC)        33.5742
+[INFO] [1744381586.355424343] [key_value_reader]: Key: Voltage as output to the motor (V)        0
+[INFO] [1744381586.355434048] [key_value_reader]: Key: Value of the auxiliary ADC (V)    0
+[INFO] [1744381586.355443287] [key_value_reader]: Key: Driver CAN ID     4
+[INFO] [1744381586.355452343] [key_value_reader]: Key: Driver Role       rear_left_wheel
+[INFO] [1744381586.355461164] [key_value_reader]: Key: Driver Mode       Speed control
+[INFO] [1744381586.355470076] [key_value_reader]: Key: Input terminal voltage (V)        12.7617
+[INFO] [1744381586.355478874] [key_value_reader]: Key: Internal driver temperature (degC)        33.5273
+[INFO] [1744381586.355487611] [key_value_reader]: Key: Voltage as output to the motor (V)        0
+[INFO] [1744381586.355529564] [key_value_reader]: Key: Value of the auxiliary ADC (V)    0
+[INFO] [1744381586.355542446] [key_value_reader]: Key: Driver CAN ID     5
+[INFO] [1744381586.355552401] [key_value_reader]: Key: Driver Role       rear_right_wheel
+[INFO] [1744381586.355561725] [key_value_reader]: Key: Driver Mode       Speed control
+[INFO] [1744381586.355570860] [key_value_reader]: Key: Input terminal voltage (V)        12.7617
+[INFO] [1744381586.355578912] [key_value_reader]: Key: Internal driver temperature (degC)        32.7617
+[INFO] [1744381586.355588166] [key_value_reader]: Key: Voltage as output to the motor (V)        0
+[INFO] [1744381586.355597497] [key_value_reader]: Key: Value of the auxiliary ADC (V)    0
+[INFO] [1744381586.355609145] [key_value_reader]: Key: dingo_node: /imu/data_raw topic status    
+[INFO] [1744381586.355619133] [key_value_reader]: Key: Events in window          234
+[INFO] [1744381586.355628149] [key_value_reader]: Key: Events since startup      984547
+[INFO] [1744381586.355637208] [key_value_reader]: Key: Duration of window (s)    5.004769
+[INFO] [1744381586.355646237] [key_value_reader]: Key: Actual frequency (Hz)     46.755401
+[INFO] [1744381586.355655114] [key_value_reader]: Key: Target frequency (Hz)     50.000000
+[INFO] [1744381586.355664173] [key_value_reader]: Key: Minimum acceptable frequency (Hz)         42.500000
+[INFO] [1744381586.355673200] [key_value_reader]: Key: Maximum acceptable frequency (Hz)         57.500000
+[INFO] [1744381586.355682191] [key_value_reader]: Key: Earliest timestamp delay          0.000019
+[INFO] [1744381586.355693269] [key_value_reader]: Key: Latest timestamp delay    0.005956
+[INFO] [1744381586.355702463] [key_value_reader]: Key: Earliest acceptable timestamp delay       -1.000000
+[INFO] [1744381586.355711617] [key_value_reader]: Key: Latest acceptable timestamp delay         1.000000
+[INFO] [1744381586.355720644] [key_value_reader]: Key: Late diagnostic update count      1
+[INFO] [1744381586.355729648] [key_value_reader]: Key: Early diagnostic update count     0
+[INFO] [1744381586.355738530] [key_value_reader]: Key: Zero seen diagnostic update count         0
+[INFO] [1744381586.355750292] [key_value_reader]: Key: bluetooth_teleop/joy_node: Joystick Driver Status         OK
+[INFO] [1744381586.355759771] [key_value_reader]: Key: topic     /bluetooth_teleop/joy
+[INFO] [1744381586.355769334] [key_value_reader]: Key: device    /dev/input/ps4
+[INFO] [1744381586.355778310] [key_value_reader]: Key: device name       
+[INFO] [1744381586.355787283] [key_value_reader]: Key: dead zone         0.1
+[INFO] [1744381586.355796265] [key_value_reader]: Key: autorepeat rate (Hz)      20
+[INFO] [1744381586.355805127] [key_value_reader]: Key: coalesce interval (s)     0.001
+[INFO] [1744381586.355815846] [key_value_reader]: Key: recent joystick event rate (Hz)   0
+[INFO] [1744381586.355825055] [key_value_reader]: Key: recent publication rate (Hz)      19.9595
+[INFO] [1744381586.355834161] [key_value_reader]: Key: subscribers       2
+[INFO] [1744381586.355842945] [key_value_reader]: Key: default trig val          False
+[INFO] [1744381586.355851839] [key_value_reader]: Key: sticky buttons    False
+[INFO] [1744381586.355860820] [key_value_reader]: Key: General   Error
+[INFO] [1744381586.355869572] [key_value_reader]: Key: Motors    Error
+[INFO] [1744381586.355878377] [key_value_reader]: Key: Sensor Topics     OK
+[INFO] [1744381586.355887214] [key_value_reader]: Key: Bluetooth Joystick        OK
+[INFO] [1744381586.355898508] [key_value_reader]: Key: hokuyo: Hardware Status   Streaming
+[INFO] [1744381586.355907766] [key_value_reader]: Key: hokuyo: Laser Scan topic status   
+[INFO] [1744381586.355916710] [key_value_reader]: Key: hokuyo_secondary: Hardware Status         Not Connected
+[INFO] [1744381586.355925746] [key_value_reader]: Key: hokuyo_secondary: Laser Scan topic status         No events recorded.
+[INFO] [1744381586.355935087] [key_value_reader]: Key: IP Address        192.168.131.20
+[INFO] [1744381586.355944113] [key_value_reader]: Key: IP Port   10940
+[INFO] [1744381586.355953056] [key_value_reader]: Key: Vendor Name       Hokuyo Automatic Co., Ltd.
+[INFO] [1744381586.355962096] [key_value_reader]: Key: Product Name      UST-10LX
+[INFO] [1744381586.355982699] [key_value_reader]: Key: Firmware Version          receive error.
+[INFO] [1744381586.355993798] [key_value_reader]: Key: Firmware Date     receive error.
+[INFO] [1744381586.356001975] [key_value_reader]: Key: Protocol Version          SCIP 2.2
+[INFO] [1744381586.356009849] [key_value_reader]: Key: Device ID         B2231466
+[INFO] [1744381586.356017666] [key_value_reader]: Key: Computed Latency          0.000000000
+[INFO] [1744381586.356025485] [key_value_reader]: Key: User Time Offset          0.000000000
+[INFO] [1744381586.356033274] [key_value_reader]: Key: Device Status     sensor is working normally
+[INFO] [1744381586.356041159] [key_value_reader]: Key: Scan Retrieve Error Count         0
+[INFO] [1744381586.356050131] [key_value_reader]: Key: Lidar Error Code          0
+[INFO] [1744381586.356061160] [key_value_reader]: Key: Locked out        False
+[INFO] [1744381586.356070539] [key_value_reader]: Key: Events in window          201
+[INFO] [1744381586.356079516] [key_value_reader]: Key: Events since startup      801528
+[INFO] [1744381586.356088461] [key_value_reader]: Key: Duration of window (s)    5.032936
+[INFO] [1744381586.356097339] [key_value_reader]: Key: Actual frequency (Hz)     39.936925
+[INFO] [1744381586.356106134] [key_value_reader]: Key: Target frequency (Hz)     40.000000
+[INFO] [1744381586.356114949] [key_value_reader]: Key: Minimum acceptable frequency (Hz)         38.000000
+[INFO] [1744381586.356123898] [key_value_reader]: Key: Maximum acceptable frequency (Hz)         42.000000
+[INFO] [1744381586.356132889] [key_value_reader]: Key: Events in window          0
+[INFO] [1744381586.356143635] [key_value_reader]: Key: Events since startup      0
+[INFO] [1744381586.356152732] [key_value_reader]: Key: Duration of window (s)    5.034473
+[INFO] [1744381586.356161569] [key_value_reader]: Key: Actual frequency (Hz)     0.000000
+[INFO] [1744381586.356170538] [key_value_reader]: Key: Target frequency (Hz)     0.000000
+[INFO] [1744381586.356179465] [key_value_reader]: Key: Maximum acceptable frequency (Hz)         0.000000
+[INFO] [1744381586.356188648] [key_value_reader]: Key: hokuyo_secondary: Hardware Status         Not Connected
+[INFO] [1744381586.356197642] [key_value_reader]: Key: hokuyo_secondary: Laser Scan topic status         No events recorded.
+[INFO] [1744381586.356206883] [key_value_reader]: Key: Events in window          0
+[INFO] [1744381586.356217503] [key_value_reader]: Key: Events since startup      0
+[INFO] [1744381586.356226483] [key_value_reader]: Key: Duration of window (s)    5.034473
+[INFO] [1744381586.356239763] [key_value_reader]: Key: Actual frequency (Hz)     0.000000
+[INFO] [1744381586.356249203] [key_value_reader]: Key: Target frequency (Hz)     0.000000
+[INFO] [1744381586.356258113] [key_value_reader]: Key: Maximum acceptable frequency (Hz)         0.000000
+[INFO] [1744381586.356267202] [key_value_reader]: Key: hokuyo secondary          Error
+[INFO] [1744381586.356276250] [key_value_reader]: Key: extrinsic_calibration_transform_publisher: Sensor Extrinsic Calibration   Calibration OK
+[INFO] [1744381586.356285907] [key_value_reader]: Key: intl_key          OK
+[INFO] [1744381586.356294938] [key_value_reader]: Key: Calibrated Sensors Count          0/0
+[INFO] [1744381586.356305981] [key_value_reader]: Key: auto_localizer: Auto-Localization Status          Idle
+[INFO] [1744381586.356315349] [key_value_reader]: Key: empty_space_tracker: Empty Space Tracker Status   Idle
+[INFO] [1744381586.356324681] [key_value_reader]: Key: localization_monitor: Localization Monitor Status         No measurements received
+[INFO] [1744381586.356334107] [key_value_reader]: Key: localization_monitor: Map Quality Status          Map quality is good
+[INFO] [1744381586.356343344] [key_value_reader]: Key: localization_monitor: Robot Pose          Robot Pose
+[INFO] [1744381586.356356085] [key_value_reader]: Key: localization_outliers_filter: Localization Fault Detector         OK
+[INFO] [1744381586.356373528] [key_value_reader]: Key: stuck_detection_node: Stuck Detection Status      OK
+[INFO] [1744381586.356383266] [key_value_reader]: Key: t2_fuse_rl: /t2_fuse_rl   Optimization converged
+[INFO] [1744381586.356392701] [key_value_reader]: Key: target_tracker: Target Tracker Status     Idle
+[INFO] [1744381586.356410628] [key_value_reader]: Key: intl_key          IDLE
+[INFO] [1744381586.356421810] [key_value_reader]: Key: intl_key          IDLE
+[INFO] [1744381586.356431649] [key_value_reader]: Key: intl_key          NO_MEASUREMENTS
+[INFO] [1744381586.356441167] [key_value_reader]: Key: Cost Avg          6.25509e-14
+[INFO] [1744381586.356452851] [key_value_reader]: Key: Cost Score        1
+[INFO] [1744381586.356462450] [key_value_reader]: Key: Covariance Score Avg      1655.56
+[INFO] [1744381586.356471202] [key_value_reader]: Key: Distance Delta    7.35475
+[INFO] [1744381586.356480518] [key_value_reader]: Key: Angle Delta [deg]         652.251
+[INFO] [1744381586.356489480] [key_value_reader]: Key: Time Delta        1.74438e+09
+[INFO] [1744381586.356498425] [key_value_reader]: Key: Localization Score        0
+[INFO] [1744381586.356507361] [key_value_reader]: Key: Lost Count        1
+[INFO] [1744381586.356516189] [key_value_reader]: Key: Writing Cache     0
+[INFO] [1744381586.356525026] [key_value_reader]: Key: Current Mode      2
+[INFO] [1744381586.356538002] [key_value_reader]: Key: intl_key          MAP_QUALITY_OK
+[INFO] [1744381586.356548219] [key_value_reader]: Key: Scan Match Score Avg      0.5
+[INFO] [1744381586.356557302] [key_value_reader]: Key: intl_key          OK
+[INFO] [1744381586.356566284] [key_value_reader]: Key: X         0.0588481
+[INFO] [1744381586.356575101] [key_value_reader]: Key: Y         0.0519985
+[INFO] [1744381586.356588018] [key_value_reader]: Key: Yaw       0.0104436
+[INFO] [1744381586.356597740] [key_value_reader]: Key: Linear Velocity   -7.85995e-11
+[INFO] [1744381586.356606859] [key_value_reader]: Key: Angular Velocity          -4.2881e-14
+[INFO] [1744381586.356615933] [key_value_reader]: Key: intl_key          OK
+[INFO] [1744381586.356626693] [key_value_reader]: Key: Rotation difference       0.00562299
+[INFO] [1744381586.356636001] [key_value_reader]: Key: Translation difference    1.38048e-10
+[INFO] [1744381586.356645055] [key_value_reader]: Key: Rotation percentage difference    0
+[INFO] [1744381586.356654014] [key_value_reader]: Key: Translation percentage difference         57.9916
+[INFO] [1744381586.356663180] [key_value_reader]: Key: Sensor Models     wheel_odometry visual_odometry unicycle_2d_ignition laser_odometry laser_localization graph_localization 
+[INFO] [1744381586.356672748] [key_value_reader]: Key: Motion Models     unicycle_2d 
+[INFO] [1744381586.356681847] [key_value_reader]: Key: Publishers        serialized_publisher odometry_publisher cost_publisher 
+[INFO] [1744381586.356691193] [key_value_reader]: Key: Started   True
+[INFO] [1744381586.356700133] [key_value_reader]: Key: Pending Transactions      1
+[INFO] [1744381586.356710945] [key_value_reader]: Key: Optimization Termination Type     CONVERGENCE
+[INFO] [1744381586.356720164] [key_value_reader]: Key: Optimization Total Time [s]       0.000879151
+[INFO] [1744381586.356729303] [key_value_reader]: Key: Optimization Iterations   1
+[INFO] [1744381586.356738269] [key_value_reader]: Key: Initial Cost      6.25524e-14
+[INFO] [1744381586.356747254] [key_value_reader]: Key: Final Cost        6.25524e-14
+[INFO] [1744381586.356756180] [key_value_reader]: Key: Time Since Last Optimization Request [s]          0.0501604
+[INFO] [1744381586.356765321] [key_value_reader]: Key: intl_key          IDLE
+[INFO] [1744381586.356774294] [key_value_reader]: Key: graph_manager: SLAM Status        SLAM is running
+[INFO] [1744381586.356783446] [key_value_reader]: Key: intl_key          SLAM_RUNNING
+[INFO] [1744381586.356794317] [key_value_reader]: Key: Slam Mode         Localization
+[INFO] [1744381586.356803493] [key_value_reader]: Key: Graph UUID        11e58506-fc6b-4234-a4db-bb43688e8b68
+[INFO] [1744381586.356812650] [key_value_reader]: Key: Graph Nodes       42
+[INFO] [1744381586.356821616] [key_value_reader]: Key: Graph Scan Nodes          26
+[INFO] [1744381586.356839993] [key_value_reader]: Key: Graph Submap Nodes        16
+[INFO] [1744381586.356850060] [key_value_reader]: Key: Graph Active Scan Nodes   0
+[INFO] [1744381586.356859868] [key_value_reader]: Key: Graph Active Submap Nodes         16
+[INFO] [1744381586.356869658] [key_value_reader]: Key: Graph Tag Landmarks       0
+[INFO] [1744381586.356881241] [key_value_reader]: Key: Graph Edges       0
+[INFO] [1744381586.356899568] [key_value_reader]: Key: Fully Optimized   True
+[INFO] [1744381586.356910603] [key_value_reader]: Key: New edge          False
+[INFO] [1744381586.356920312] [key_value_reader]: Key: New keyframe      0
+[INFO] [1744381586.356929788] [key_value_reader]: Key: grid_mapper: Grid Mapper Status   Grid Mapper is OK
+[INFO] [1744381586.356939420] [key_value_reader]: Key: intl_key          GRID_OK
+[INFO] [1744381586.356948955] [key_value_reader]: Key: Height [m]        102.4
+[INFO] [1744381586.356958481] [key_value_reader]: Key: Width [m]         108.8
+[INFO] [1744381586.356967837] [key_value_reader]: Key: Area [m^2]        11141.1
+[INFO] [1744381586.356979108] [key_value_reader]: Key: Resolution [m]    0.05
+[INFO] [1744381586.356988443] [key_value_reader]: Key: Fully Updated     1
+[INFO] [1744381586.356997330] [key_value_reader]: Key: Map Healing Enabled       False
+[INFO] [1744381586.357006481] [key_value_reader]: Key: Graph Manager     OK
+[INFO] [1744381586.357015392] [key_value_reader]: Key: Grid Mapper       OK
+[INFO] [1744381586.357024418] [key_value_reader]: Key: cmd_vel_rate_monitor: Tracker publish rate monitor        Initialized
+[INFO] [1744381586.357033675] [key_value_reader]: Key: move_base: Farsight Dilation Monitor      OK
+[INFO] [1744381586.357042673] [key_value_reader]: Key: move_base: Farsight Dilation Monitor Rogue Diagnostics    Initialized
+[INFO] [1744381586.357052094] [key_value_reader]: Key: move_base: General Path Planner   Initialized
+[INFO] [1744381586.357063093] [key_value_reader]: Key: move_base: Goal Diagnostic        Initialized
+[INFO] [1744381586.357072311] [key_value_reader]: Key: move_base: Goal Tolerance         Initialized
+[INFO] [1744381586.357081411] [key_value_reader]: Key: move_base: Graph Generator (GraphPlanner)         Graph generation failed.
+[INFO] [1744381586.357090608] [key_value_reader]: Key: move_base: Graph Planner Monitor          Initialized
+[INFO] [1744381586.357100811] [key_value_reader]: Key: move_base: Narwhal        Initialized
+[INFO] [1744381586.357109874] [key_value_reader]: Key: move_base: Navigation Status      Initialized
+[INFO] [1744381586.357118860] [key_value_reader]: Key: move_base: ObstacleMap    
+[INFO] [1744381586.357127941] [key_value_reader]: Key: move_base: Planner (AssistedManualPlanner)        Initialized
+[INFO] [1744381586.357137020] [key_value_reader]: Key: move_base: Planner (DispatchPlanner)      Initialized
+[INFO] [1744381586.357147853] [key_value_reader]: Key: move_base: Planner (GraphPlanner)         Initialized
+[INFO] [1744381586.357157069] [key_value_reader]: Key: move_base: Planner (LineFollowerPlanner)          Initialized
+[INFO] [1744381586.357166124] [key_value_reader]: Key: move_base: Planner (LocalFramePlanner)    Initialized
+[INFO] [1744381586.357175129] [key_value_reader]: Key: move_base: Planner (PathReplay)   Initialized
+[INFO] [1744381586.357184123] [key_value_reader]: Key: move_base: Planner (PreperatoryPlanner)   Initialized
+[INFO] [1744381586.357193250] [key_value_reader]: Key: move_base: Planner (RecoveryLogicPlanner)         Initialized
+[INFO] [1744381586.357202298] [key_value_reader]: Key: move_base: Planner (RefinementPlanner)    Initialized
+[INFO] [1744381586.357211272] [key_value_reader]: Key: move_base: Planner (ReplanLogicPlanner)   Initialized
+[INFO] [1744381586.357222161] [key_value_reader]: Key: move_base: Planner (SpecialCasePlanner)   Initialized
+[INFO] [1744381586.357231436] [key_value_reader]: Key: move_base: Primitive Path Planner         Initialized
+[INFO] [1744381586.357240470] [key_value_reader]: Key: move_base: Recovery Behaviours    Initialized
+[INFO] [1744381586.357249461] [key_value_reader]: Key: move_base: Target Drift Checker   Initialized
+[INFO] [1744381586.357258516] [key_value_reader]: Key: move_base: Tracker Recovery Behaviors     Recoveries have been reset.
+[INFO] [1744381586.357267728] [key_value_reader]: Key: move_base: Tracker status         Initialized
+[INFO] [1744381586.357276695] [key_value_reader]: Key: move_base: Traffic Control        Free from Puppeteer's influence
+[INFO] [1744381586.357285958] [key_value_reader]: Key: move_base: obstaclemap heartbeat topic status     
+[INFO] [1744381586.357303563] [key_value_reader]: Key: move_base: planner        Initialized
+[INFO] [1744381586.357314091] [key_value_reader]: Key: polygon_checker: Polygon Checker          OK
+[INFO] [1744381586.357323200] [key_value_reader]: Key: tf_monitor: Transform Tree Monitor        ok
+[INFO] [1744381586.357332317] [key_value_reader]: Key: average_delay_ms          0
+
+[INFO] [1744381586.357341577] [key_value_reader]: Key: maximum_delay_ms          0
+
+[INFO] [1744381586.357350924] [key_value_reader]: Key: lane_graph_default        
+Total time = 0.001346
+Graph was not generated because there are no Graph Planner Lanes in the map.
+
+[INFO] [1744381586.357370490] [key_value_reader]: Key: Backtrace         
+[INFO] [1744381586.357380030] [key_value_reader]: Key: Active Stages     NONE
+[INFO] [1744381586.357389064] [key_value_reader]: Key: interaction_ids_json      []
+[INFO] [1744381586.357400330] [key_value_reader]: Key: intl_key          inactive
+[INFO] [1744381586.357409805] [key_value_reader]: Key: Events in window          248
+[INFO] [1744381586.357418886] [key_value_reader]: Key: Events since startup      291402
+[INFO] [1744381586.357428139] [key_value_reader]: Key: Duration of window (s)    17.000088
+[INFO] [1744381586.357437200] [key_value_reader]: Key: Actual frequency (Hz)     14.588160
+[INFO] [1744381586.357446324] [key_value_reader]: Key: Minimum acceptable frequency (Hz)         2.000000
+[INFO] [1744381586.357455354] [key_value_reader]: Key: Maximum acceptable frequency (Hz)         100000.000000
+[INFO] [1744381586.357464670] [key_value_reader]: Key: invalid_reasons_json      {}
+[INFO] [1744381586.357476044] [key_value_reader]: Key: intl_key          ok
+[INFO] [1744381586.357485409] [key_value_reader]: Key: control_selection: Control Mode   Robot is in neutral mode and cannot be moved remotely or autonomously
+[INFO] [1744381586.357495080] [key_value_reader]: Key: control_selection: Pause and Disable Sources      Robot movement allowed
+[INFO] [1744381586.357504383] [key_value_reader]: Key: slam_mode_manager: Map Manager Mode       Robot is in localization mode.
+[INFO] [1744381586.357513643] [key_value_reader]: Key: speed_limit/autonomy: External Speed Limit (Autonomy)     No External Limit
+[INFO] [1744381586.357522835] [key_value_reader]: Key: speed_limit/core: External Speed Limit (Core)     No External Limit
+[INFO] [1744381586.357531890] [key_value_reader]: Key: strategy_manager: Job queue status        Strategy management is idle - job queue is empty
+[INFO] [1744381586.357541309] [key_value_reader]: Key: strategy_manager: Step Status     Robot is idle
+[INFO] [1744381586.357552443] [key_value_reader]: Key: intl_key          CONTROL_MODE_NEUTRAL
+[INFO] [1744381586.357561738] [key_value_reader]: Key: intl_key          CONTROL_SOURCE_ALLOWED
+[INFO] [1744381586.357570841] [key_value_reader]: Key: Robot control disabled    False
+[INFO] [1744381586.357579965] [key_value_reader]: Key: Robot control paused      False
+[INFO] [1744381586.357589087] [key_value_reader]: Key: Autonomy disabled         False
+[INFO] [1744381586.357598394] [key_value_reader]: Key: Autonomy paused   False
+[INFO] [1744381586.357607426] [key_value_reader]: Key: Robot control disable sources     []
+[INFO] [1744381586.357616417] [key_value_reader]: Key: Robot control pause sources       []
+[INFO] [1744381586.357632904] [key_value_reader]: Key: Autonomy disable sources          []
+[INFO] [1744381586.357642917] [key_value_reader]: Key: Autonomy pause sources    []
+[INFO] [1744381586.357651971] [key_value_reader]: Key: intl_key          LOCALIZATION_MODE
+[INFO] [1744381586.357660921] [key_value_reader]: Key: limit_mps         
+[INFO] [1744381586.357669817] [key_value_reader]: Key: limit_source      
+[INFO] [1744381586.357678761] [key_value_reader]: Key: intl_key          NO_LIMIT
+[INFO] [1744381586.357687674] [key_value_reader]: Key: limit_mps         
+[INFO] [1744381586.357696515] [key_value_reader]: Key: limit_source      
+[INFO] [1744381586.357705245] [key_value_reader]: Key: intl_key          NO_LIMIT
+[INFO] [1744381586.357714254] [key_value_reader]: Key: intl_key          SM_QUEUE_EMPTY
+[INFO] [1744381586.357725272] [key_value_reader]: Key: intl_key          SM_ROBOT_IDLE
+[INFO] [1744381586.357734569] [key_value_reader]: Key: robot_update_manager: Status      Idle
+[INFO] [1744381586.357751376] [key_value_reader]: Key: Active partition          0
+[INFO] [1744381586.357762067] [key_value_reader]: Key: SYS A version     2.26.5~20230327023459-0
+[INFO] [1744381586.357770416] [key_value_reader]: Key: SYS B version     unknown
+[INFO] [1744381586.357778326] [key_value_reader]: Key: Rolled back       False
+[INFO] [1744381586.357786203] [key_value_reader]: Key: Reboot required   False
+[INFO] [1744381586.357794104] [key_value_reader]: Key: Installation progress     0
+[INFO] [1744381586.357801974] [key_value_reader]: Key: Error     None
+[INFO] [1744381586.357811846] [key_value_reader]: Key: intl_key          UPDATE_MGR_IDLE
+[INFO] [1744381586.357820034] [key_value_reader]: Key: ekf_localization: Filter diagnostic updater       The robot_localization state estimation node appears to be functioning properly.
+[INFO] [1744381586.357828992] [key_value_reader]: Key: ekf_localization: odometry/filtered topic status          
+[INFO] [1744381586.357836973] [key_value_reader]: Key: twist_mux: Twist mux status       ok
+[INFO] [1744381586.357846256] [key_value_reader]: Key: Events in window          507
+[INFO] [1744381586.357855164] [key_value_reader]: Key: Events since startup      1003877
+[INFO] [1744381586.357864119] [key_value_reader]: Key: Duration of window (s)    10.140009
+[INFO] [1744381586.357873912] [key_value_reader]: Key: Actual frequency (Hz)     49.999954
+[INFO] [1744381586.357885104] [key_value_reader]: Key: Minimum acceptable frequency (Hz)         43.200000
+[INFO] [1744381586.357893260] [key_value_reader]: Key: Maximum acceptable frequency (Hz)         57.200000
+[INFO] [1744381586.357901269] [key_value_reader]: Key: velocity joy       masked (listening to joy_teleop/cmd_vel @ 0.500000s with priority #10)
+[INFO] [1744381586.357909863] [key_value_reader]: Key: velocity bt_joy    masked (listening to bluetooth_teleop/cmd_vel @ 0.500000s with priority #9)
+[INFO] [1744381586.357918223] [key_value_reader]: Key: velocity interactive_marker        masked (listening to twist_marker_server/cmd_vel @ 0.500000s with priority #8)
+[INFO] [1744381586.357927681] [key_value_reader]: Key: velocity indoornav_web     masked (listening to manual/cmd_vel @ 0.500000s with priority #2)
+[INFO] [1744381586.357936937] [key_value_reader]: Key: velocity external          masked (listening to cmd_vel @ 0.500000s with priority #3)
+[INFO] [1744381586.357946458] [key_value_reader]: Key: velocity ros2      masked (listening to /cpr_do150_10000007/cmd_vel @ 0.500000s with priority #1)
+[INFO] [1744381586.357956556] [key_value_reader]: Key: lock e_stop        free (listening to e_stop @ 0.000000s with priority #255)
+[INFO] [1744381586.357964783] [key_value_reader]: Key: current priority          0
+[INFO] [1744381586.357972734] [key_value_reader]: Key: loop time in [sec]        0
+[INFO] [1744381586.357980637] [key_value_reader]: Key: data age in [sec]         0
