@@ -72,7 +72,7 @@ int main() {
 
     while (true) {
         uint16_t regs[6];
-        int rc = modbus_read_input_registers(ctx, 1, 6, regs);
+        int rc = modbus_read_input_registers(ctx, 0, 6, regs);
         if (rc == -1) {
             std::cerr << "Read failed: " << modbus_strerror(errno) << std::endl;
         } else {
