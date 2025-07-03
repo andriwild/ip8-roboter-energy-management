@@ -3,3 +3,12 @@ build
 install
 log
 dingo_stats_*
+matlab/slprj
+matlab/soc_estimation.slxc
+matlab/battery_data.mat
+matlab/+bus_conv_fcns/
+matlab/build_ros2_model.sh
+matlab/ros2_sim.slx
+matlab/ros2_sim.slxc
+matlab/ros2_sim_ert_rtw/
+matlab/src/
