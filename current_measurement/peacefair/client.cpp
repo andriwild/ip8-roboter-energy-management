@@ -1,7 +1,7 @@
 // Library: 
 // https://libmodbus.org/reference/#rtu-context
 //
-// Sensor protocoll datesheet: 
+// Sensor protocol datesheet: 
 // https://thesunpays.com/downloads/files/Battery%20SOC%20meters/PZEM-003%20017User%20Manual(MEDC300V).pdf
 
 // Bild and run: 
@@ -115,12 +115,12 @@ int main(int argc, char* argv[]) {
     modbus_set_slave(ctx, SLAVE_ID);
     sleep(1);
 
-    //int success = setupCurrentRange(ctx);
-    //if (success == -1) {
-    //    modbus_close(ctx);
-    //    modbus_free(ctx);
-    //    return EXIT_SUCCESS;
-    //}
+    int success = setupCurrentRange(ctx);
+    if (success == -1) {
+       modbus_close(ctx);
+       modbus_free(ctx);
+       return EXIT_SUCCESS;
+    }
 
     while (true) {
         uint16_t regs[6];
