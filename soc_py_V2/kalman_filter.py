@@ -5,20 +5,8 @@ Extended Kalman Filter for Battery SOC Estimation
 import numpy as np
 from battery_params import BatteryParameters
 
-class BatterySOCKalmanFilter:
-    def __init__(self, dt=0.1, initial_soc=0.5):
-        """
-        Extended Kalman Filter for battery SOC estimation
-        
-        States: [SOC, V_RC1, V_RC2]
-        - SOC: State of Charge (0-1)
-        - V_RC1: Voltage across RC circuit 1
-        - V_RC2: Voltage across RC circuit 2
-        
-        Args:
-            dt: Sample time in seconds
-            initial_soc: Initial state of charge (0-1)
-        """
+class ExtendedKalmanFilter:
+    def __init__(self, dt=1.0, initial_soc=0.5):
         self.dt = dt
         
         # Initialize battery parameters
@@ -48,7 +36,7 @@ class BatterySOCKalmanFilter:
         Prediction step of the Kalman filter
         
         Args:
-            current: Battery current in A (negative for discharge)
+            current: Battery current in A (positive for discharge)
             capacity_ah: Battery capacity in Ah
         """
         # Get current SOC
@@ -74,19 +62,15 @@ class BatterySOCKalmanFilter:
             [0.0, exp1, 0.0],
             [0.0, 0.0, exp2]
         ])
-        
-        # Predict new states
-        # SOC: Coulomb counting
-        # Bei Entladung (current < 0) sollte SOC sinken
-        # Bei Ladung (current > 0) sollte SOC steigen
-        new_soc = soc + (current * self.dt) / (3600.0 * capacity_ah)
-        
-        # RC voltages
-        new_v_rc1 = exp1 * self.x[1] + r1 * (1 - exp1) * current
-        new_v_rc2 = exp2 * self.x[2] + r2 * (1 - exp2) * current
+
+        G = np.array([
+            -self.dt/ (3600 * capacity_ah),
+            r1 * (1 - exp1),
+            r2 * (1 - exp2)
+            ])
         
         # Update state vector
-        self.x = np.array([new_soc, new_v_rc1, new_v_rc2])
+        self.x = self.F @ self.x.T + G * current
         
         # Predict error covariance: P = F * P * F' + Q
         self.P = self.F @ self.P @ self.F.T + self.Q
@@ -97,7 +81,7 @@ class BatterySOCKalmanFilter:
         
         Args:
             voltage_measured: Measured terminal voltage in V
-            current: Battery current in A
+            current: Battery current in A (negative for charge)
         """
         # Get current SOC
         soc = self.x[0]
@@ -112,7 +96,7 @@ class BatterySOCKalmanFilter:
         
         # Calculate predicted terminal voltage
         # V_terminal = OCV + I*R0 - V_RC1 - V_RC2
-        v_predicted = ocv + r0 * current - self.x[1] - self.x[2]
+        v_predicted = ocv - r0 * current - self.x[1] - self.x[2]
         
         # Innovation (measurement residual)
         innovation = voltage_measured - v_predicted
@@ -142,7 +126,7 @@ class BatterySOCKalmanFilter:
         
         Args:
             voltage: Measured terminal voltage in V
-            current: Measured current in A (negative for discharge)
+            current: Measured current in A (negative for charge)
             capacity_ah: Battery capacity in Ah
             
         Returns:
@@ -161,12 +145,3 @@ class BatterySOCKalmanFilter:
             'covariance': np.diag(self.P),
             'kalman_gain': self.kalman_gain_history[-1] if self.kalman_gain_history else None
         }
-    
-    def get_battery_parameters(self):
-        """Get all battery parameters at current SOC"""
-        return self.battery_params.get_all_params(self.x[0])
-    
-    def get_predicted_voltage(self, current):
-        """Get predicted terminal voltage without updating the filter"""
-        params = self.get_battery_parameters()
-        return params['ocv'] + current * params['r0'] - self.x[1] - self.x[2]
