@@ -12,3 +12,9 @@ matlab/ros2_sim.slx
 matlab/ros2_sim.slxc
 matlab/ros2_sim_ert_rtw/
 matlab/src/
+matlab/export*.csv
+soc_estimation/export*.csv
+soc_estimation/.venv
+soc_estimation/__pycache__
+soc_estimation/.idea
+.idea
