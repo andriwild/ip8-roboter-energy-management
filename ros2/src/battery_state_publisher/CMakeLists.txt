@@ -10,6 +10,9 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(LIBMODBUS REQUIRED libmodbus)
+
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -26,13 +29,32 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-add_executable(battery_state_publisher "src/battery_state_publisher.cpp")
+add_executable(
+  battery_state_publisher 
+  "src/battery_state_publisher.cpp"
+  "src/pzem_sensor.cpp"
+  )
 ament_target_dependencies(
   battery_state_publisher
   rclcpp 
   std_msgs 
   sensor_msgs 
   )
+
+target_include_directories(battery_state_publisher PRIVATE
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${LIBMODBUS_INCLUDE_DIRS}
+)
+
+# Link libmodbus
+target_link_libraries(battery_state_publisher
+  ${LIBMODBUS_LIBRARIES}
+)
+
+# Add compiler flags for libmodbus
+target_compile_options(battery_state_publisher PRIVATE
+  ${LIBMODBUS_CFLAGS_OTHER}
+)
 
 install(TARGETS battery_state_publisher DESTINATION lib/${PROJECT_NAME})
 
