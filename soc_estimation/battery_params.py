@@ -3,7 +3,7 @@ from scipy.interpolate import interp1d
 
 class BatteryParameters:
     def __init__(self):
-        # SOC breakpoints (33 points from 0 to 1)
+        # SOC breakpoints (35 points from 0 to 1)
         self.soc_bp = np.array([
             0.0, 0.02941225486521637, 0.058824117602975678, 0.088234411830912074,
             0.11764544129782739, 0.14705916664099683, 0.17647249985671409,
