@@ -1,3 +1,4 @@
+.venv
 .vscode
 build
 install
@@ -12,9 +13,15 @@ matlab/ros2_sim.slx
 matlab/ros2_sim.slxc
 matlab/ros2_sim_ert_rtw/
 matlab/src/
+matlab/SOC_grt_rtw
+matlab/soc_export/
 matlab/export*.csv
 soc_estimation/export*.csv
 soc_estimation/.venv
 soc_estimation/__pycache__
 soc_estimation/.idea
 .idea
+soh_estimation/export*
+soh_estimation/__pycache__
+soh_estimation/.venv
+
