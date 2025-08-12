@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
     }
 
     // baud: 9600, no parity (N), 8 data bits, 2 stop bits
-    modbus_t* ctx = modbus_new_rtu("/dev/ttyUSB0", 9600, 'N', 8, 2);
+    modbus_t* ctx = modbus_new_rtu("/dev/ttyUSB1", 9600, 'N', 8, 2);
     if (ctx == NULL) {
         std::cerr << "Unable to create the modbus context" << std::endl;
         return EXIT_FAILURE;

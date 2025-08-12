@@ -15,7 +15,7 @@ struct BatteryReadings {
 
 class PzemSensor {
 public:
-    PzemSensor(const std::string& device = "/dev/ttyUSB0", 
+    PzemSensor(const std::string& device = "/dev/ttyUSB1", 
                int baud_rate = 9600,
                uint16_t slave_id = 1);
     ~PzemSensor();

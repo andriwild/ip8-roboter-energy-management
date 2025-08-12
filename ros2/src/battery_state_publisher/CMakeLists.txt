@@ -34,6 +34,11 @@ add_executable(
   "src/battery_state_publisher.cpp"
   "src/pzem_sensor.cpp"
   )
+
+install(DIRECTORY launch/
+  DESTINATION share/${PROJECT_NAME}/launch/
+)
+
 ament_target_dependencies(
   battery_state_publisher
   rclcpp 

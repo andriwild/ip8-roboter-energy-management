@@ -19,18 +19,19 @@ public:
     timeout_duration_(5.0),  // 5 seconds timeout
     publish_rate_(1.0)       // 1 Hz default publication rate
   {
-    try {
       // Declare parameters
       declare_parameters();
       
       // Publisher for own BatteryState
       battery_pub_ = this->create_publisher<sensor_msgs::msg::BatteryState>(
-        "battery_state", rclcpp::QoS(10).reliable().durability_volatile());
+        "battery_state", 10);
       
       // Subscription to /bms/state with robust QoS settings
       battery_sub_ = this->create_subscription<sensor_msgs::msg::BatteryState>(
-        "/bms/state", 
-        rclcpp::QoS(10).reliable().durability_volatile(),
+        "/do150_0007/platform/bms/state", 
+        rclcpp::SensorDataQoS()          // = BEST_EFFORT + VOLATILE + keep_last(5)
+      .best_effort()               // explizit setzen, damit es beim Lesen klar ist
+      .durability_volatile(),
         std::bind(&BatteryMonitor::bms_state_callback, this, std::placeholders::_1)
       );
       
@@ -41,8 +42,12 @@ public:
         std::bind(&BatteryMonitor::timer_callback, this)
       );
       
+    try {
       // Initialize sensor
+      RCLCPP_INFO(this->get_logger(), "Init sensor");
       initialize_sensor();
+
+      RCLCPP_INFO(this->get_logger(), "Init sensor done");
       
       RCLCPP_INFO(this->get_logger(), "BatteryMonitor Node started successfully");
       
@@ -81,8 +86,14 @@ private:
   
   void initialize_sensor()
   {
+
+      RCLCPP_INFO(this->get_logger(), "1");
     try {
+
+      RCLCPP_INFO(this->get_logger(), "2");
       pzem_sensor_ = std::make_unique<PzemSensor>();
+
+      RCLCPP_INFO(this->get_logger(), "3");
       if (!pzem_sensor_->initialize()) {
         RCLCPP_WARN(this->get_logger(), "Failed to initialize PZEM sensor, continuing without local readings");
         pzem_sensor_.reset();
