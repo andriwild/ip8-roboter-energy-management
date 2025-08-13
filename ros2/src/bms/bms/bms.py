@@ -89,7 +89,6 @@ class BmsNode(Node):
         q_eol = q_new * self.eol_capactiy_factor
 
         self._soh = (capacity - q_eol ) / (q_new - q_eol)
-        print(self._soh)
         
         self._msg_counter += 1
         if self._msg_counter % 10 == 0:
@@ -98,7 +97,6 @@ class BmsNode(Node):
 
     def save_soh(self):
         with open('soh.txt', 'w') as f:
-            print("write: ", self._soh)
             f.write(str(self._soh))
 
 
@@ -106,7 +104,6 @@ class BmsNode(Node):
         try:
             with open('soh.txt', 'r') as f:
                 soh = f.read()
-                print("read:", soh)
                 return float(soh) if soh else 1.0
         except:
             return 1.0
@@ -122,9 +119,7 @@ def main(args=None):
     except KeyboardInterrupt:
         pass
     finally:
-        print("save soh")
         soc_estimator.save_soh()
-        print("done")
         soc_estimator.destroy_node()
         rclpy.shutdown()
 
