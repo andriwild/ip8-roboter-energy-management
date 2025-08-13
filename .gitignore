@@ -24,4 +24,6 @@ soc_estimation/.idea
 soh_estimation/export*
 soh_estimation/__pycache__
 soh_estimation/.venv
-
+ros2/src/battery_soc_estimator/battery_soc_estimator/__pycache__
+current_measurement/peacefair/client
+ros2/soh.txt
