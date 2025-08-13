@@ -7,7 +7,7 @@ class StateOfChargeFilter:
     using Thevenin Model (Equivalent Circuit)
     """
 
-    def __init__(self, P, Q, R, H, dt=1.0, initial_soc=0.8):
+    def __init__(self, P, Q, R, H, ocv ,dt=1.0, initial_soc=0.8):
 
         self._P = P # state covariance matrix (3x3)
         self._Q = Q # process noise covariance (3x3)
@@ -16,18 +16,21 @@ class StateOfChargeFilter:
 
         self._dt = dt                            
 
+        # initialize battery parameters         
+        self._battery_params = BatteryParameters()
+
+        initial_soc = self.get_initial_soc(ocv) if ocv else initial_soc
+
         # state vector: [SOC, V_RC1, V_RC2]
         self._x = np.array([initial_soc, 0.0, 0.0])
 
-        # initialize battery parameters         
-        self._battery_params = BatteryParameters()
         
     @property
     def x(self):
         return self._x
 
 
-    def set_initial_soc(self, voltage):
+    def get_initial_soc(self, voltage):
         ocv_data = self._battery_params.ocv_data
         index = len(ocv_data) -1
         for i, ocv in enumerate(ocv_data):

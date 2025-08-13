@@ -10,6 +10,7 @@ from .soc_kalman_filter import StateOfChargeFilter
 from .soh_kalman_filter import CapacityFilter
 from .dual_kalman_filter import DualKalmanFilter
 
+SOH_FILE = "bms/soh.txt"
 
 class BmsNode(Node):
     def __init__(self):
@@ -59,10 +60,9 @@ class BmsNode(Node):
                 Q=np.diag([1e-4, 1e-4, 1e-4]),    # process noise covariance (3x3)
                 R=np.array([[0.4]]),              # measurement noise covariance (1x1)
                 H=np.array([[1.0, -1.0, -1.0]]),  # measurement matrix (1x3)
+                ocv=voltage_measured,
                 dt=self.dt,
             )
-            # initially guess soc from ocv (inaccurate, but better than wild guess)
-            soc_kf.set_initial_soc(voltage_measured)
 
             soh_kf = CapacityFilter(Q_init=self.initial_capacity * self._soh)
             self._filter = DualKalmanFilter(soc_kf, soh_kf)
@@ -96,13 +96,13 @@ class BmsNode(Node):
 
 
     def save_soh(self):
-        with open('soh.txt', 'w') as f:
+        with open(SOH_FILE, 'w') as f:
             f.write(str(self._soh))
 
 
     def read_soh(self):
         try:
-            with open('soh.txt', 'r') as f:
+            with open(SOH_FILE, 'r') as f:
                 soh = f.read()
                 return float(soh) if soh else 1.0
         except:
