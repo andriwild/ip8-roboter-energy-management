@@ -84,23 +84,20 @@ class BatteryDashboard(QWidget):
         
     @pyqtSlot(dict)
     def update_display(self, data):
-        if 'soc' in data:
-            self.battery_widget.set_level(data['soc'])
-            
-        if 'voltage' in data:
-            self.voltage_widget.set_value(f"{data['voltage']:.1f}")
-            
-        if 'current' in data:
-            self.current_widget.set_value(f"{abs(data['current']):.1f}")
-            
-        if 'power' in data:
-            self.power_widget.set_value(f"{abs(data['power']):.1f}")
-            
-        if 'soh' in data:
-            self.soh_widget.set_value(f"{int(data['soh'])}")
+        self.battery_widget.set_level(data['soc'])
+        self.voltage_widget.set_value(f"{data['voltage']:.1f}")
+        self.power_widget.set_value(f"{(data['power']):.1f}")
+        self.soh_widget.set_value(f"{int(data['soh'])}")
+        self.charging_indicator.set_charging(data['charging'])
+
+
+        current = data['current']
+        if data['charging']:
+            current = -current
+        self.current_widget.set_value(f"{current:.1f}")
             
         if 'time_remaining' in data:
-            if data['time_remaining']:
+            if data['time_remaining'] and not data['charging']:
                 # Smooth time remaining with moving average
                 self.time_remaining_buffer.append(data['time_remaining'])
                 if len(self.time_remaining_buffer) > 10:  # Keep last 10 values
@@ -114,5 +111,3 @@ class BatteryDashboard(QWidget):
                 self.time_widget.set_time(None, None)
                 self.time_remaining_buffer.clear()
                 
-        if 'charging' in data:
-            self.charging_indicator.set_charging(data['charging'])

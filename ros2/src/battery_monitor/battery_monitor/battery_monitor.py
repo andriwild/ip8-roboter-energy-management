@@ -9,9 +9,11 @@ from .gui.dashboard import BatteryDashboard
 import sys
 from PyQt5.QtWidgets import QApplication
 
+EOL_FACTOR = 0.8
+
 class BatteryMonitorNode(Node):
     def __init__(self, dashboard):
-        super().__init__('battery_monitor_node')
+        super().__init__('battery_monitor')
         self.dashboard = dashboard
         self.subscription = self.create_subscription(
             BatteryState,
@@ -26,7 +28,7 @@ class BatteryMonitorNode(Node):
             'soc': msg.percentage,
             'voltage': msg.voltage,
             'current': msg.current,
-            'power': msg.voltage * msg.current if msg.current else 0,
+            'power': msg.voltage * msg.current,
             'capacity': msg.capacity,
             'design_capacity': msg.design_capacity,
             'charging': msg.power_supply_status == 4,  # 4 = charging, 2 = not charging
@@ -34,11 +36,12 @@ class BatteryMonitorNode(Node):
         }
         
         # Calculate SoH
-        if msg.design_capacity > 0:
-            battery_data['soh'] = (msg.capacity / msg.design_capacity) * 100
-        else:
-            battery_data['soh'] = 100
-            
+        q_new = msg.design_capacity
+        q_eol = q_new * EOL_FACTOR
+
+        soh = (msg.capacity - q_eol ) / (q_new - q_eol)
+        battery_data['soh'] = round(soh * 100)
+
         # Calculate time remaining with smoothing
         if msg.current > 0 and msg.charge > 0:
             hours_remaining = msg.charge / msg.current
