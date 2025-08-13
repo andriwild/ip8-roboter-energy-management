@@ -63,8 +63,12 @@ class BmsNode(Node):
                 ocv=voltage_measured,
                 dt=self.dt,
             )
+            q_init=self.initial_capacity * self._soh
 
-            soh_kf = CapacityFilter(Q_init=self.initial_capacity * self._soh)
+            self.get_logger().info(f'Initialize SoC Filter: initial SoC={soc_kf.x[0]}')
+            self.get_logger().info(f'Initialize Capacity Filter: initial capacity={q_init}')
+
+            soh_kf = CapacityFilter(Q_init=q_init)
             self._filter = DualKalmanFilter(soc_kf, soh_kf)
 
         soc, capacity = self._filter.step(current_measured, voltage_measured)

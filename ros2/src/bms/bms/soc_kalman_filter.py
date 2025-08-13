@@ -32,10 +32,16 @@ class StateOfChargeFilter:
 
     def get_initial_soc(self, voltage):
         ocv_data = self._battery_params.ocv_data
-        index = len(ocv_data) -1
-        for i, ocv in enumerate(ocv_data):
-            if ocv > voltage:
-                index = i
+        n = len(ocv_data)
+        index = n -1
+        ocv = ocv_data[index]
+
+        while(index >= 0 and ocv > voltage):
+            index -= 1
+            ocv = ocv_data[index]
+
+        # based on the charged OCV, compensate for VR0 and select the next higher OCV value
+        index = min(n, index + 1)
         return self._battery_params.soc_bp[index]
 
 
