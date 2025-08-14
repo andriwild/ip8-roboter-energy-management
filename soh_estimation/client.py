@@ -2,7 +2,8 @@ import sys
 import numpy as np
 import csv
 from plot_utils import plot_results
-from kalman_filter import BatteryCapacityEKF
+from soh_estimation.soh_kalman_filter import BatteryCapacityEKF
+from soc_estimation.dekf import CombinedKalmanFilter
 
 
 def load_csv(filename, max_rows=1000000):
@@ -67,7 +68,9 @@ def test_kalman_filter(current_file, soc_file, ah_file, initial_capacity=44.0):
     
     print(f"Initial capacity: {initial_capacity} Ah")
     
-    kf = BatteryCapacityEKF()
+    
+    #kf = BatteryCapacityEKF()
+    kf = CombinedKalmanFilter()
     
     capacity_estimates = []
     covariance_history = []

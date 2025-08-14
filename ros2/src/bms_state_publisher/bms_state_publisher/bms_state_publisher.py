@@ -20,8 +20,8 @@ class LeadAcidBatterySimulator(Node):
         self.nominal_voltage = 12.0  # V (typisch für 12V Blei-Säure-Batterie)
         self.max_voltage = 14.4      # V (Ladespannung)
         self.min_voltage = 10.8      # V (Entladeschlussspannung)
-        self.capacity = 10.0        # Ah (Ampere-Stunden)
-        self.current_capacity = 8.0 # Ah (aktuelle Kapazität, 80% geladen)
+        self.capacity = 44.0        # Ah (Ampere-Stunden)
+        self.current_capacity = 40.0 # Ah (aktuelle Kapazität, 80% geladen)
         
         # Simulationsparameter
         self.charging = False        # Lade-/Entladezustand
@@ -62,9 +62,9 @@ class LeadAcidBatterySimulator(Node):
         msg.voltage -= abs(msg.current) * self.internal_resistance
         
         # Weitere Parameter setzen
-        msg.charge = self.current_capacity * 3600  # Ah -> Coulomb (As)
-        msg.capacity = self.capacity * 3600        # Ah -> Coulomb (As)
-        msg.design_capacity = self.capacity * 3600 # Ah -> Coulomb (As)
+        msg.charge = self.current_capacity
+        msg.capacity = self.capacity
+        msg.design_capacity = self.capacity
         msg.percentage = soc * 100.0               # Prozent
         
         # Temperatur simulieren (Blei-Säure erwärmt sich beim Laden/Entladen)

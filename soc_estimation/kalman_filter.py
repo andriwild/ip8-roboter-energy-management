@@ -7,7 +7,7 @@ class ExtendedKalmanFilter:
     using Thevenin Model (Equivalent Circuit)
     """
 
-    def __init__(self, P, Q, R, H, dt=1.0, initial_soc=0.5):
+    def __init__(self, P, Q, R, H, dt=1.0, initial_soc=0.8):
 
         self._P = P # state covariance matrix (3x3)
         self._Q = Q # process noise covariance (3x3)

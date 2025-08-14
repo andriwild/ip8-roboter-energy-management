@@ -1,7 +1,5 @@
-import numpy as np
-
 class BatteryCapacityEKF:
-    def __init__(self, dt=1.0, Q=1e-5, R=5e-7, P=1e-8, Q_init=38.0):
+    def __init__(self, dt=1.0, Q=1e-5, R=5e-7, P=1e-8, Q_init=44.0):
 
         self._dt = dt # time step
         self._P = P   # state covariance matrix

@@ -151,16 +151,3 @@ class BatteryParameters:
         soc = np.clip(soc, 0, 1)
         return float(self.interpolators[param](soc))
     
-
-    def get_all_params(self, soc):
-        return {
-            'ocv': self.lookup('ocv', soc),
-            'r0': self.lookup('r0', soc),
-            'r1': self.lookup('r1', soc),
-            'r2': self.lookup('r2', soc),
-            'c1': self.lookup('c1', soc),
-            'c2': self.lookup('c2', soc),
-            'dv0_dsoc': self.lookup('dv0', soc)
-        }
-
-            
