@@ -19,13 +19,13 @@ def plot_results(time, current, soc, capacity_estimates, capacity_reference, cov
     
     # Plot 1: Capacity comparison
     ax = axes[0]
-    ax.set_ylim(30, 46)
+    ax.set_ylim(30, 50)
     ax.plot(time / 3600, capacity_estimates, 'b-', label='Kalman Filter Estimate', linewidth=1.5)
     ax.plot(time / 3600, capacity_reference, 'r--', label='MATLAB Reference', linewidth=1.5)
-    ax.fill_between(time / 3600,
-                     capacity_estimates - three_sigma,
-                     capacity_estimates + three_sigma,
-                     alpha=0.2, color='blue', label='3σ Uncertainty')
+    # ax.fill_between(time / 3600,
+    #                  capacity_estimates - three_sigma,
+    #                  capacity_estimates + three_sigma,
+    #                  alpha=0.2, color='blue', label='3σ Uncertainty')
     ax.set_xlabel('Time (hours)')
     ax.set_ylabel('Capacity (Ah)')
     ax.set_title('Battery Capacity Estimation: Kalman Filter vs MATLAB')

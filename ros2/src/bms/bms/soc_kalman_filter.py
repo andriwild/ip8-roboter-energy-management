@@ -7,7 +7,7 @@ class StateOfChargeFilter:
     using Thevenin Model (Equivalent Circuit)
     """
 
-    def __init__(self, P, Q, R, H, ocv ,dt=1.0, initial_soc=0.8):
+    def __init__(self, P, Q, R, H, ocv=None, initial_soc=0.5, dt=1.0):
 
         self._P = P # state covariance matrix (3x3)
         self._Q = Q # process noise covariance (3x3)
@@ -45,7 +45,7 @@ class StateOfChargeFilter:
         return self._battery_params.soc_bp[index]
 
 
-    def predict(self, current, capacity_ah):
+    def predict(self, current: float, capacity_ah: float):
         dt  = self._dt  # time step
         x   = self._x   # current state
         P   = self._P   # covariance matrix
@@ -75,9 +75,15 @@ class StateOfChargeFilter:
             r1 * (1 - exp1),
             r2 * (1 - exp2)
         ])
+
+        # Richtig
+        # soc_next = soc - (current * dt) / (3600.0 * capacity_ah)
+        # v_rc1_next = exp1 * x[1] + r1 * (1 - exp1) * current
+        # v_rc2_next = exp2 * x[2] + r2 * (1 - exp2) * current
+        # self._x = np.array([soc_next, v_rc1_next, v_rc2_next])
         
         # update state vector
-        self._x = F @ x.T + G * current
+        self._x = F @ x.T + G * current 
         
         # predict error covariance
         self._P = F @ P @ F.T + Q
@@ -85,13 +91,11 @@ class StateOfChargeFilter:
         
     def update(self, z):
         # measurements
-        u_meas= z[0]  # measured voltage
-        i_meas= z[1]  # measured current
+        u_meas, i_meas = z  # measured voltage and current
+        soc   = self._x[0]  # current soc
+        u_rc1 = self._x[1]  # rc1 voltage
+        u_rc2 = self._x[2]  # rc2 voltage
 
-        x     = self._x  # current state
-        soc   = x[0]     # current soc
-        u_rc1 = x[1]     # rc1 voltage
-        u_rc2 = x[2]     # rc2 voltage
         
         # lookup battery parameters
         ocv      = self._battery_params.lookup('ocv', soc)
@@ -121,11 +125,11 @@ class StateOfChargeFilter:
         K = P @ H.T @ np.linalg.inv(S)
         
         # update state estimate
-        self._x = x + K.flatten() * y
+        self._x = self._x + K.flatten() * y
         
         # update error covariance
         I = np.eye(3)
         self._P = (I - K @ H) @ P
         
-        # ensure SOC stays within physical bounds
+        # ensure SOC stays within bounds
         self._x[0] = np.clip(self._x[0], 0, 1)

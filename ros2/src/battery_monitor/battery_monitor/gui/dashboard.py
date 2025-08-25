@@ -3,7 +3,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QGridLayout
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QTimer
 from PyQt5.QtGui import QPalette, QColor, QFont
-from .widgets import BatteryWidget, MetricWidget, TimeRemainingWidget, ChargingIndicator
+from .widgets import BatteryWidget, MetricWidget, ChargingIndicator
 
 class BatteryDashboard(QWidget):
     data_received = pyqtSignal(dict)
@@ -54,23 +54,23 @@ class BatteryDashboard(QWidget):
         
         main_layout.addLayout(top_layout)
         
-        # Time remaining
-        self.time_widget = TimeRemainingWidget()
-        main_layout.addWidget(self.time_widget)
-        
         # Metrics grid
         metrics_layout = QGridLayout()
         metrics_layout.setSpacing(20)
-        
-        self.voltage_widget = MetricWidget('Voltage', 'V', '#00aaff')
-        self.current_widget = MetricWidget('Current', 'A', '#ffaa00')
-        self.power_widget = MetricWidget('Power', 'Wh', '#ff00aa')
-        self.soh_widget = MetricWidget('SoH', '%', '#00ff88')
-        
-        metrics_layout.addWidget(self.voltage_widget, 0, 0)
-        metrics_layout.addWidget(self.current_widget, 0, 1)
-        metrics_layout.addWidget(self.power_widget, 1, 0)
-        metrics_layout.addWidget(self.soh_widget, 1, 1)
+
+        self.time_widget    = MetricWidget('Time',     'h',  '#00aaff')
+        self.range_widget   = MetricWidget('Distance', 'm',  '#ffaa00')
+        self.voltage_widget = MetricWidget('Voltage',  'V',  '#88ff00')
+        self.current_widget = MetricWidget('Current',  'A',  '#aa00ff')
+        self.power_widget   = MetricWidget('Power',    'Wh', '#ff00aa')
+        self.soh_widget     = MetricWidget('SoH',      '%',  '#00ff88')
+
+        metrics_layout.addWidget(self.time_widget,     0, 0)
+        metrics_layout.addWidget(self.range_widget, 0, 1)
+        metrics_layout.addWidget(self.voltage_widget,  1, 0)
+        metrics_layout.addWidget(self.current_widget,  1, 1)
+        metrics_layout.addWidget(self.power_widget,    2, 0)
+        metrics_layout.addWidget(self.soh_widget,      2, 1)
         
         main_layout.addLayout(metrics_layout)
         main_layout.addSpacing(20)
@@ -85,6 +85,8 @@ class BatteryDashboard(QWidget):
     @pyqtSlot(dict)
     def update_display(self, data):
         self.battery_widget.set_level(data['soc'])
+        self.time_widget.set_value(data['time'])
+        self.range_widget.set_value(int(data['range']))
         self.voltage_widget.set_value(f"{data['voltage']:.1f}")
         self.power_widget.set_value(f"{(data['power']):.1f}")
         self.soh_widget.set_value(f"{int(data['soh'])}")
@@ -95,19 +97,3 @@ class BatteryDashboard(QWidget):
         if data['charging']:
             current = -current
         self.current_widget.set_value(f"{current:.1f}")
-            
-        if 'time_remaining' in data:
-            if data['time_remaining'] and not data['charging']:
-                # Smooth time remaining with moving average
-                self.time_remaining_buffer.append(data['time_remaining'])
-                if len(self.time_remaining_buffer) > 10:  # Keep last 10 values
-                    self.time_remaining_buffer.pop(0)
-                
-                avg_time = sum(self.time_remaining_buffer) / len(self.time_remaining_buffer)
-                hours = int(avg_time)
-                minutes = int((avg_time - hours) * 60)
-                self.time_widget.set_time(hours, minutes)
-            else:
-                self.time_widget.set_time(None, None)
-                self.time_remaining_buffer.clear()
-                

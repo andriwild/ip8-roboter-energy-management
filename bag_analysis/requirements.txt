@@ -1,0 +1,9 @@
+rosbag2-py
+rclpy
+rosidl-runtime-py
+matplotlib
+numpy
+seaborn
+geometry-msgs
+nav-msgs
+sensor-msgs

@@ -72,6 +72,15 @@ class BmsNode(Node):
             self._filter = DualKalmanFilter(soc_kf, soh_kf)
 
         soc, capacity = self._filter.step(current_measured, voltage_measured)
+
+        q_new = msg.design_capacity
+        q_eol = q_new * self.eol_capactiy_factor
+
+        self._soh = (capacity - q_eol ) / (q_new - q_eol)
+
+        battery_health = BatteryState.POWER_SUPPLY_HEALTH_GOOD
+        if self._soh <= 0.0: 
+            battery_health = BatteryState.POWER_SUPPLY_HEALTH_DEAD
         
         enhanced_msg = BatteryState()
         enhanced_msg.header = msg.header
@@ -82,17 +91,13 @@ class BmsNode(Node):
         enhanced_msg.temperature = msg.temperature
         enhanced_msg.present = msg.present
         enhanced_msg.power_supply_status = msg.power_supply_status
-        enhanced_msg.power_supply_health = msg.power_supply_health
+        enhanced_msg.power_supply_health = battery_health
         enhanced_msg.power_supply_technology = msg.power_supply_technology
         enhanced_msg.percentage = soc * 100.0
         enhanced_msg.charge = soc * capacity
         
         self.enhanced_battery_publisher.publish(enhanced_msg)
 
-        q_new = msg.design_capacity
-        q_eol = q_new * self.eol_capactiy_factor
-
-        self._soh = (capacity - q_eol ) / (q_new - q_eol)
         
         self._msg_counter += 1
         if self._msg_counter % 10 == 0:

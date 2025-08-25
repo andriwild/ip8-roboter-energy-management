@@ -101,48 +101,6 @@ class MetricWidget(QWidget):
     def set_value(self, value):
         self.value_label.setText(str(value))
 
-class TimeRemainingWidget(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.init_ui()
-        
-    def init_ui(self):
-        layout = QVBoxLayout()
-        
-        label = QLabel('Time Remaining')
-        label.setAlignment(Qt.AlignCenter)
-        label.setStyleSheet("""
-            font-size: 16px;
-            color: #888;
-            font-weight: bold;
-        """)
-        
-        self.time_label = QLabel('--:--')
-        self.time_label.setAlignment(Qt.AlignCenter)
-        self.time_label.setStyleSheet("""
-            font-size: 48px;
-            color: #00aaff;
-            font-weight: bold;
-            font-family: 'Courier New', monospace;
-        """)
-        
-        layout.addWidget(label)
-        layout.addWidget(self.time_label)
-        
-        self.setLayout(layout)
-        self.setStyleSheet("""
-            QWidget {
-                background-color: #2a2a2a;
-                border-radius: 10px;
-                padding: 15px;
-            }
-        """)
-        
-    def set_time(self, hours, minutes):
-        if hours is not None and minutes is not None:
-            self.time_label.setText(f"{hours:02d}:{minutes:02d}")
-        else:
-            self.time_label.setText("--:--")
 
 class ChargingIndicator(QWidget):
     def __init__(self):

@@ -56,9 +56,18 @@ class ExtendedKalmanFilter:
             r1 * (1 - exp1),
             r2 * (1 - exp2)
         ])
+        soc_next = soc - (current * dt) / (3600.0 * capacity_ah)
+    
+        # RC-Glied 1: V_RC1 = exp(-dt/τ₁)*V_RC1 + R1*(1-exp(-dt/τ₁))*I
+        v_rc1_next = exp1 * x[1]+ r1 * (1 - exp1) * current
+    
+        # RC-Glied 2: V_RC2 = exp(-dt/τ₂)*V_RC2 + R2*(1-exp(-dt/τ₂))*I  
+        v_rc2_next = exp2 * x[2] + r2 * (1 - exp2) * current
+    
+        self._x = np.array([soc_next, v_rc1_next, v_rc2_next])
         
         # update state vector
-        self._x = F @ x.T + G * current
+        #self._x = F @ x.T + G * current
         
         # predict error covariance
         self._P = F @ P @ F.T + Q
