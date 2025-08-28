@@ -26,6 +26,7 @@ public:
         std::bind(&BatteryMonitor::bms_state_callback, this, std::placeholders::_1)
       );
       
+      // Timer for cyclic publishing (configurable rate)
       auto timer_period = std::chrono::duration<double>(1.0 / publish_rate_);
       timer_ = this->create_wall_timer(
         std::chrono::duration_cast<std::chrono::nanoseconds>(timer_period),
@@ -33,6 +34,7 @@ public:
       );
       
     try {
+      // Initialize sensor
       initialize_sensor();
       RCLCPP_INFO(this->get_logger(), "BatteryMonitor Node started successfully");
     } catch (const std::exception& e) {
