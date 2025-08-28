@@ -31,12 +31,12 @@ class BmsNode(Node):
         
         self.battery_subscription = self.create_subscription(
             BatteryState,
-            'battery_state',
+            'pzem/battery_state',
             self.battery_callback,
             10
         )
         self._msg_counter = 0       
-        self.enhanced_battery_publisher = self.create_publisher(BatteryState, 'battery_state_enhanced', 10)
+        self.enhanced_battery_publisher = self.create_publisher(BatteryState, 'bms/state', 10)
         self.get_logger().info(f'BMS Node started: SoH={self._soh}, initial Capacity={self.initial_capacity}')
     
     def battery_callback(self, msg):

@@ -31,14 +31,10 @@ class BatteryMonitorNode(Node):
 
         self.subscription = self.create_subscription(
             BatteryState,
-            '/battery_state_enhanced',
+            '/bms/state',
             self.battery_callback,
             10
         )
-        timestamp = datetime.now().strftime("%Y_%m_%d__%H_%M_%S")
-        self._filename = f"battery_data_{timestamp}.csv"
-        self._csv_initialized = False
-
         self.get_logger().info('Battery Monitor Node started')
 
 
@@ -60,29 +56,6 @@ class BatteryMonitorNode(Node):
         energy_remaining = soc * self._V_nominal * capacity
         range = energy_remaining / self._P_avg
         return range * self._safety_factor
-
-
-    def log_battery_data(self, battery_data):
-        data_with_timestamp = battery_data.copy()
-        data_with_timestamp['timestamp'] = datetime.now().isoformat()
-    
-        sorted_keys = sorted(data_with_timestamp.keys())
-    
-        if self._csv_initialized:
-            try:
-                with open(self._filename, 'a', newline='') as csvfile:
-                    writer = csv.DictWriter(csvfile, fieldnames=sorted_keys)
-                    writer.writerow({key: data_with_timestamp[key] for key in sorted_keys})
-            except Exception as e:
-                print(f"Error logging battery data: {e}")
-        else:
-            try:
-                with open(self._filename, 'w', newline='') as csvfile:
-                    writer = csv.DictWriter(csvfile, fieldnames=sorted_keys)
-                    writer.writeheader()
-                    writer.writerow({key: data_with_timestamp[key] for key in sorted_keys})
-            except Exception as e:
-                print(f"Error creating battery data file: {e}")
 
 
     def battery_callback(self, msg):
