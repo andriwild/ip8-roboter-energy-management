@@ -19,7 +19,7 @@ public:
   static constexpr const char* FRAME_ID = "battery_frame";
   
   PzemBatteryStatePublisher()
-  : Node("pzem_battery_state_publisher"),
+  : Node("battery_state_publisher"),
     m_pzem_sensor(nullptr),
     m_last_bms_update(this->get_clock()->now())
   {
