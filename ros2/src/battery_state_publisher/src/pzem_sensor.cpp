@@ -3,22 +3,18 @@
 #include <errno.h>
 #include <unistd.h>
 
-PzemSensor::PzemSensor(const std::string& device, int baud_rate, uint16_t slave_id)
-    : ctx_(nullptr)
+PzemSensor::PzemSensor(const std::string& device, int baud_rate, uint16_t slave_id) : ctx_(nullptr)
     , device_(device)
     , baud_rate_(baud_rate)
     , slave_id_(slave_id)
     , connected_(false)
-{
-}
+{}
 
-PzemSensor::~PzemSensor()
-{
+PzemSensor::~PzemSensor() {
     disconnect();
 }
 
-bool PzemSensor::initialize()
-{
+bool PzemSensor::initialize() {
     if (connected_) {
         return true;
     }
