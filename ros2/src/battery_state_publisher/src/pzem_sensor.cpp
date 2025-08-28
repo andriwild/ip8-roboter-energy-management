@@ -23,7 +23,7 @@ bool PzemSensor::initialize()
         return true;
     }
 
-    // Create modbus context: baud: 9600, no parity (N), 8 data bits, 2 stop bits
+    // Create modbus:  baud: 9600, no parity (N), 8 data bits, 2 stop bits
     ctx_ = modbus_new_rtu(device_.c_str(), baud_rate_, 'N', 8, 2);
     if (ctx_ == nullptr) {
         std::cerr << "PZEM: Unable to create modbus context" << std::endl;
@@ -38,9 +38,8 @@ bool PzemSensor::initialize()
         return false;
     }
 
-    // Set slave ID
     modbus_set_slave(ctx_, slave_id_);
-    sleep(1); // Give device time to respond
+    sleep(1); 
 
     // Setup current range to 50A
     if (!setup_current_range()) {
@@ -54,13 +53,11 @@ bool PzemSensor::initialize()
     return true;
 }
 
-bool PzemSensor::setup_current_range(uint16_t range)
-{
+bool PzemSensor::setup_current_range(uint16_t range) {
     if (ctx_ == nullptr) {
         return false;
     }
 
-    // Read current range setting
     uint16_t current_value;
     int read_result = modbus_read_registers(ctx_, CURRENT_RANGE_REGISTER, 1, &current_value);
     if (read_result == -1) {
@@ -71,7 +68,6 @@ bool PzemSensor::setup_current_range(uint16_t range)
 
     std::cout << "PZEM: Current range register value: " << current_value << std::endl;
 
-    // Set current range if different
     if (current_value != range) {
         int write_result = modbus_write_register(ctx_, CURRENT_RANGE_REGISTER, range);
         if (write_result == -1) {
@@ -87,15 +83,13 @@ bool PzemSensor::setup_current_range(uint16_t range)
     return true;
 }
 
-BatteryReadings PzemSensor::read()
-{
+BatteryReadings PzemSensor::read() {
     BatteryReadings readings = {0.0f, 0.0f, 0.0f, 0.0f, false};
 
     if (!connected_ || ctx_ == nullptr) {
         return readings;
     }
 
-    // Read 6 input registers starting from address 0
     uint16_t regs[6];
     int rc = modbus_read_input_registers(ctx_, 0, 6, regs);
     
@@ -104,7 +98,6 @@ BatteryReadings PzemSensor::read()
         return readings;
     }
 
-    // Parse readings according to PZEM-003 protocol
     readings.voltage = regs[0] * 0.01f;  // Register 0: Voltage (0.01V resolution)
     readings.current = regs[1] * 0.01f;  // Register 1: Current (0.01A resolution)
     
@@ -118,8 +111,7 @@ BatteryReadings PzemSensor::read()
     return readings;
 }
 
-void PzemSensor::disconnect()
-{
+void PzemSensor::disconnect() {
     if (ctx_ != nullptr) {
         modbus_close(ctx_);
         modbus_free(ctx_);

@@ -10,7 +10,7 @@ from .soc_kalman_filter import StateOfChargeFilter
 from .soh_kalman_filter import CapacityFilter
 from .dual_kalman_filter import DualKalmanFilter
 
-SOH_FILE = "bms/soh.txt"
+SOH_FILE = "soh.txt"
 
 class BmsNode(Node):
     def __init__(self):

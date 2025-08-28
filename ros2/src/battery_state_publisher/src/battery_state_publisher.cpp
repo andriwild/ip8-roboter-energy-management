@@ -8,34 +8,24 @@
 #include "rcl_interfaces/msg/parameter_descriptor.hpp"
 #include "pzem_sensor.hpp"
 
-// Forward declaration for dummy sensor
-class BatteryMonitor : public rclcpp::Node
-{
+class BatteryMonitor : public rclcpp::Node {
 public:
   BatteryMonitor()
   : Node("battery_monitor"),
     pzem_sensor_(nullptr),
     last_bms_update_(this->get_clock()->now()),
-    timeout_duration_(5.0),  // 5 seconds timeout
-    publish_rate_(1.0)       // 1 Hz default publication rate
+    timeout_duration_(5.0),
+    publish_rate_(1.0)
   {
-      // Declare parameters
       declare_parameters();
       
-      // Publisher for own BatteryState
-      battery_pub_ = this->create_publisher<sensor_msgs::msg::BatteryState>(
-        "battery_state", 10);
-      
-      // Subscription to /bms/state with robust QoS settings
+      battery_pub_ = this->create_publisher<sensor_msgs::msg::BatteryState>( "battery_state", 10);
       battery_sub_ = this->create_subscription<sensor_msgs::msg::BatteryState>(
         "/do150_0007/platform/bms/state", 
-        rclcpp::SensorDataQoS()          // = BEST_EFFORT + VOLATILE + keep_last(5)
-      .best_effort()               // explizit setzen, damit es beim Lesen klar ist
-      .durability_volatile(),
+        rclcpp::SensorDataQoS().best_effort().durability_volatile(),
         std::bind(&BatteryMonitor::bms_state_callback, this, std::placeholders::_1)
       );
       
-      // Timer for cyclic publishing (configurable rate)
       auto timer_period = std::chrono::duration<double>(1.0 / publish_rate_);
       timer_ = this->create_wall_timer(
         std::chrono::duration_cast<std::chrono::nanoseconds>(timer_period),
@@ -43,14 +33,8 @@ public:
       );
       
     try {
-      // Initialize sensor
-      RCLCPP_INFO(this->get_logger(), "Init sensor");
       initialize_sensor();
-
-      RCLCPP_INFO(this->get_logger(), "Init sensor done");
-      
       RCLCPP_INFO(this->get_logger(), "BatteryMonitor Node started successfully");
-      
     } catch (const std::exception& e) {
       RCLCPP_ERROR(this->get_logger(), "Failed to initialize BatteryMonitor: %s", e.what());
       throw;
@@ -60,7 +44,6 @@ public:
 private:
   void declare_parameters()
   {
-    // Timeout parameter
     rcl_interfaces::msg::ParameterDescriptor timeout_desc;
     timeout_desc.description = "Timeout for BMS messages in seconds";
     timeout_desc.floating_point_range.resize(1);
@@ -68,7 +51,6 @@ private:
     timeout_desc.floating_point_range[0].to_value = 60.0;
     this->declare_parameter("bms_timeout", timeout_duration_, timeout_desc);
     
-    // Publication rate parameter
     rcl_interfaces::msg::ParameterDescriptor rate_desc;
     rate_desc.description = "Publication rate in Hz";
     rate_desc.floating_point_range.resize(1);
@@ -76,24 +58,15 @@ private:
     rate_desc.floating_point_range[0].to_value = 10.0;
     this->declare_parameter("publish_rate", publish_rate_, rate_desc);
     
-    // Frame ID parameter
     this->declare_parameter("frame_id", "battery_frame");
     
-    // Get parameter values
     timeout_duration_ = this->get_parameter("bms_timeout").as_double();
     publish_rate_ = this->get_parameter("publish_rate").as_double();
   }
   
-  void initialize_sensor()
-  {
-
-      RCLCPP_INFO(this->get_logger(), "1");
+  void initialize_sensor() {
     try {
-
-      RCLCPP_INFO(this->get_logger(), "2");
       pzem_sensor_ = std::make_unique<PzemSensor>();
-
-      RCLCPP_INFO(this->get_logger(), "3");
       if (!pzem_sensor_->initialize()) {
         RCLCPP_WARN(this->get_logger(), "Failed to initialize PZEM sensor, continuing without local readings");
         pzem_sensor_.reset();
@@ -106,8 +79,7 @@ private:
     }
   }
   
-  BatteryReadings read_sensor_data()
-  {
+  BatteryReadings read_sensor_data() {
     BatteryReadings readings = {0.0f, 0.0f, 0.0f, 0.0f, false};
     
     try {
@@ -122,15 +94,13 @@ private:
     return readings;
   }
 
-  void bms_state_callback(const sensor_msgs::msg::BatteryState::SharedPtr msg)
-  {
+  void bms_state_callback(const sensor_msgs::msg::BatteryState::SharedPtr msg) {
     if (!msg) {
       RCLCPP_WARN(this->get_logger(), "Received empty BMS message");
       return;
     }
     
     try {
-      // Update last BMS state
       last_bms_state_ = *msg;
       last_bms_update_ = this->get_clock()->now();
       
@@ -142,8 +112,7 @@ private:
     }
   }
   
-  bool is_bms_data_fresh()
-  {
+  bool is_bms_data_fresh() {
     try {
       auto now = this->get_clock()->now();
       auto duration = (now - last_bms_update_).seconds();
@@ -154,23 +123,18 @@ private:
     }
   }
 
-  void timer_callback()
-  {
+  void timer_callback() {
     try {
       auto msg = sensor_msgs::msg::BatteryState();
       
-      // Header with current timestamp
       msg.header.stamp = this->get_clock()->now();
       msg.header.frame_id = this->get_parameter("frame_id").as_string();
       
-      // Check if BMS data is current
       if (is_bms_data_fresh() && last_bms_state_) {
-        // Use BMS data as base
         msg = *last_bms_state_;
         msg.header.stamp = this->get_clock()->now();
         msg.header.frame_id = this->get_parameter("frame_id").as_string();
         
-        // Override with PZEM sensor data if available
         BatteryReadings local_readings = read_sensor_data();
         if (local_readings.valid) {
           msg.voltage = local_readings.voltage;
@@ -214,8 +178,7 @@ private:
   double publish_rate_;
 };
 
-int main(int argc, char * argv[])
-{
+int main(int argc, char * argv[]) {
   rclcpp::init(argc, argv);
   
   try {

@@ -32,8 +32,8 @@ class StateOfChargeFilter:
 
     def get_initial_soc(self, voltage):
         ocv_data = self._battery_params.ocv_data
-        n = len(ocv_data)
-        index = n -1
+        n = len(ocv_data) - 1
+        index = n
         ocv = ocv_data[index]
 
         while(index >= 0 and ocv > voltage):
