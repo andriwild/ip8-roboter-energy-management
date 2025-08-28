@@ -15,21 +15,11 @@ struct BatteryReadings {
 
 class PzemSensor {
 public:
-    PzemSensor(const std::string& device = "/dev/ttyUSB1", 
-               int baud_rate = 9600,
-               uint16_t slave_id = 1);
+    PzemSensor(const std::string& device = "/dev/ttyUSB0", int baud_rate = 9600, uint16_t slave_id = 1);
     ~PzemSensor();
-    
-    // Initialize connection and setup sensor
     bool initialize();
-    
-    // Read current sensor values
     BatteryReadings read();
-    
-    // Check if sensor is connected
     bool is_connected() const { return connected_; }
-    
-    // Cleanup connection
     void disconnect();
 
 private:
@@ -45,4 +35,4 @@ private:
     static const uint16_t DEFAULT_CURRENT_RANGE = 1; // 50A
 };
 
-#endif // PZEM_SENSOR_HPP
+#endif
