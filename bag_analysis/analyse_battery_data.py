@@ -41,7 +41,7 @@ def extract_data(bag_path, downsample_threshold=10000):
     pose_data = {'time': [], 'x': [], 'y': [], 'z': []}
     odom_data = {'time': [], 'x': [], 'y': [], 'z': [], 'vx': [], 'vy': [], 'vz': [], 'wx': [], 'wy': [], 'wz': []}
     
-    storage_options = StorageOptions(uri=bag_path, storage_id='sqlite3')
+    storage_options = StorageOptions(uri=bag_path, storage_id='mcap')
     converter_options = ConverterOptions(
         input_serialization_format='cdr',
         output_serialization_format='cdr'
@@ -81,7 +81,7 @@ def extract_data(bag_path, downsample_threshold=10000):
                     battery_data = downsample_data(battery_data, downsample_threshold)
                     sampling_rate['battery'] *= 2
             
-        elif topic == '/amcl_pose':
+        elif topic == '/do150_0007/amcl_pose':
             sample_counter['pose'] += 1
             if sample_counter['pose'] % sampling_rate['pose'] == 0:
                 msg_type = get_message(type_map[topic])
@@ -95,7 +95,7 @@ def extract_data(bag_path, downsample_threshold=10000):
                     pose_data = downsample_data(pose_data, downsample_threshold)
                     sampling_rate['pose'] *= 2
             
-        elif topic == '/odom':
+        elif topic == '/do150_0007/odom':
             sample_counter['odom'] += 1
             if sample_counter['odom'] % sampling_rate['odom'] == 0:
                 msg_type = get_message(type_map[topic])
@@ -115,6 +115,7 @@ def extract_data(bag_path, downsample_threshold=10000):
                     odom_data = downsample_data(odom_data, downsample_threshold)
                     sampling_rate['odom'] *= 2
     
+    #reader.close()
     
     print(f"Data extraction complete")
     print(f"Battery samples: {len(battery_data['time'])} (total processed: {sample_counter['battery']})")
