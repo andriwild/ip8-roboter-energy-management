@@ -1,3 +1,7 @@
+/*
+ * ROS2 Node to replace current and voltage values from robot platform.
+*/
+
 #include <memory>
 #include <chrono>
 #include <vector>
@@ -8,46 +12,40 @@
 #include "rcl_interfaces/msg/parameter_descriptor.hpp"
 #include "pzem_sensor.hpp"
 
-class BatteryMonitor : public rclcpp::Node {
+class PzemBatteryStatePublisher : public rclcpp::Node {
 public:
   static constexpr double TIMEOUT_DURATION = 5.0;
   static constexpr double PUBLISH_RATE = 1.0;
+  static constexpr const char* FRAME_ID = "battery_frame";
   
-  BatteryMonitor()
-  : Node("battery_state_publisher"),
+  PzemBatteryStatePublisher()
+  : Node("pzem_battery_state_publisher"),
     m_pzem_sensor(nullptr),
     m_last_bms_update(this->get_clock()->now())
   {
-      declare_parameters();
-      
       m_battery_pub = this->create_publisher<sensor_msgs::msg::BatteryState>("pzem/battery_state", 10);
       m_battery_sub = this->create_subscription<sensor_msgs::msg::BatteryState>(
         "/do150_0007/platform/bms/state", 
         rclcpp::SensorDataQoS().best_effort().durability_volatile(),
-        std::bind(&BatteryMonitor::bms_state_callback, this, std::placeholders::_1)
+        std::bind(&PzemBatteryStatePublisher::bms_state_callback, this, std::placeholders::_1)
       );
       
-      auto timer_period = std::chrono::duration<double>(1.0 / PUBLISH_RATE);
+      auto timer_period = std::chrono::duration<double>(PUBLISH_RATE);
       m_timer = this->create_wall_timer(
         std::chrono::duration_cast<std::chrono::nanoseconds>(timer_period),
-        std::bind(&BatteryMonitor::timer_callback, this)
+        std::bind(&PzemBatteryStatePublisher::timer_callback, this)
       );
       
     try {
-      // Initialize sensor
       initialize_sensor();
-      RCLCPP_INFO(this->get_logger(), "BatteryMonitor Node started successfully");
+      RCLCPP_INFO(this->get_logger(), "PzemBatteryStatePublisher Node started successfully");
     } catch (const std::exception& e) {
-      RCLCPP_ERROR(this->get_logger(), "Failed to initialize BatteryMonitor: %s", e.what());
+      RCLCPP_ERROR(this->get_logger(), "Failed to initialize PzemBatteryStatePublisher: %s", e.what());
       throw;
     }
   }
 
 private:
-  void declare_parameters()
-  {
-    this->declare_parameter("frame_id", "battery_frame");
-  }
   
   void initialize_sensor() {
     try {
@@ -111,7 +109,7 @@ private:
       auto duration = (now - m_last_bms_update).seconds();
       return duration < TIMEOUT_DURATION;
     } catch (const std::exception& e) {
-      RCLCPP_WARN(this->get_logger(), "Exception checking BMS freshness: %s", e.what());
+      RCLCPP_WARN(this->get_logger(), "Exception: BMS data too old %s", e.what());
       return false;
     }
   }
@@ -121,12 +119,12 @@ private:
       auto msg = sensor_msgs::msg::BatteryState();
       
       msg.header.stamp = this->get_clock()->now();
-      msg.header.frame_id = this->get_parameter("frame_id").as_string();
+      msg.header.frame_id = FRAME_ID;
       
       if (is_bms_data_fresh() && m_last_bms_state) {
         msg = *m_last_bms_state;
         msg.header.stamp = this->get_clock()->now();
-        msg.header.frame_id = this->get_parameter("frame_id").as_string();
+        msg.header.frame_id = FRAME_ID;
         
         BatteryReadings local_readings = read_sensor_data();
         msg.voltage = local_readings.voltage;
@@ -137,6 +135,7 @@ private:
           local_readings.voltage, local_readings.current, local_readings.power);
         
       } else {
+        // Only log once in the given time
         RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 5000,
           "BMS data stale (%.2fs), not publishing battery state", 
           (this->get_clock()->now() - m_last_bms_update).seconds());
@@ -164,11 +163,10 @@ int main(int argc, char * argv[]) {
   rclcpp::init(argc, argv);
   
   try {
-    auto node = std::make_shared<BatteryMonitor>();
+    auto node = std::make_shared<PzemBatteryStatePublisher>();
     rclcpp::spin(node);
   } catch (const std::exception& e) {
-    RCLCPP_FATAL(rclcpp::get_logger("battery_monitor"), 
-      "Unhandled exception: %s", e.what());
+    RCLCPP_FATAL(rclcpp::get_logger("pzem_battery_state_publisher"), "Unhandled exception: %s", e.what());
     return 1;
   }
   
