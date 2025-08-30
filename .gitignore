@@ -25,3 +25,4 @@ soh_estimation/.venv
 current_measurement/peacefair/client
 ros2/soh.txt
 **/__pycache__
+ros2/src/bms/**/export_**.csv

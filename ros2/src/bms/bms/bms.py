@@ -57,8 +57,8 @@ class BmsNode(Node):
         if self._filter == None:
             soc_kf = StateOfChargeFilter(
                 P=np.diag([1e-6, 1e-6, 1.0]),     # state covariance matrix (3x3)
-                Q=np.diag([1e-4, 1e-4, 1e-4]),    # process noise covariance (3x3)
-                R=np.array([[0.4]]),              # measurement noise covariance (1x1)
+                Q=np.diag([1e-6, 1e-6, 1e-6]),    # process noise covariance (3x3)
+                R=np.array([[0.7]]),              # measurement noise covariance (1x1)
                 H=np.array([[1.0, -1.0, -1.0]]),  # measurement matrix (1x3)
                 ocv=voltage_measured,
                 dt=self.dt,
