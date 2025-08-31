@@ -11,7 +11,8 @@ class DualKalmanFilter:
         self._soc_filter.update([voltage, current])
         
         # SOH update with new SOC
-        soc_estimate = self._soc_filter.x[0]
-        self._soh_filter.step(current, soc_estimate)
+        soc_estimate = self._soc_filter._x[0]
+        self._soh_filter.predict()
+        self._soh_filter.update([current, soc_estimate])
         
         return soc_estimate, self._soh_filter._x

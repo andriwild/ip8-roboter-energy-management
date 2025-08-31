@@ -1,6 +1,9 @@
 import numpy as np
 
 class CapacityFilter:
+    """
+    Extended Kalman Filter for state of health estimation of a battery 
+    """
     def __init__(self, dt=1.0, Q=1e-5, R=5e-7, P=1e-8, Q_init=44.0):
 
         self._dt = dt # time step
@@ -10,10 +13,6 @@ class CapacityFilter:
         self._x = Q_init  # state - capacity (Ah)
         self._prev_soc = None  # previous state of charge
         self._Q_init = Q_init
-
-    def step(self, current, soc):
-        self.predict()
-        return self.update([current, soc])
 
 
     def update(self, z):

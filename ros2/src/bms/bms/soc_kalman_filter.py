@@ -24,11 +24,6 @@ class StateOfChargeFilter:
         # state vector: [SOC, V_RC1, V_RC2]
         self._x = np.array([initial_soc, 0.0, 0.0])
 
-        
-    @property
-    def x(self):
-        return self._x
-
 
     def get_initial_soc(self, voltage):
         ocv_data = self._battery_params.ocv_data

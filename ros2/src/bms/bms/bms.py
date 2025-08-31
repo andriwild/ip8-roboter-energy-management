@@ -38,15 +38,36 @@ class BmsNode(Node):
         self._msg_counter = 0       
         self.enhanced_battery_publisher = self.create_publisher(BatteryState, 'bms/state', 10)
         self.get_logger().info(f'BMS Node started: SoH={self._soh}, initial Capacity={self.initial_capacity}')
+
+
+    def init_filter(self, voltage_measured):
+        soc_kf = StateOfChargeFilter(
+            P=np.diag([7e-3, 7e-3, 7e-3]),     # state covariance matrix (3x3)
+            Q=np.diag([1e-6, 1e-6, 1e-6]),    # process noise covariance (3x3)
+            R=np.array([[2.0]]),              # measurement noise covariance (1x1)
+            H=np.array([[1.0, -1.0, -1.0]]),  # measurement matrix (1x3)
+            ocv=voltage_measured,
+            dt=self.dt,
+        )
+        q_init=self.initial_capacity * self._soh
+        soh_kf = CapacityFilter(Q_init=q_init)
+
+        self.get_logger().info(f'Initialize SoC Filter: initial SoC={soc_kf.x[0]}')
+        self.get_logger().info(f'Initialize Capacity Filter: initial capacity={q_init}')
+
+        return DualKalmanFilter(soc_kf, soh_kf)
+
     
     def battery_callback(self, msg):
         current_time = msg.header.stamp.sec + msg.header.stamp.nanosec * 1e-9
         
         if self.last_timestamp is not None:
-            # Dynamic dt based on actual time difference
+            # dt based on actual time difference
             actual_dt = current_time - self.last_timestamp
-            if actual_dt > 0 and actual_dt < 10.0:  # Sanity check: dt between 0 and 10 seconds
+            if actual_dt > 0 and actual_dt < 1.2:
                 self.dt = actual_dt
+            else:
+                self.get_logger().error(f"Message delay too high: {actual_dt}")
         
         self.last_timestamp = current_time
         
@@ -55,21 +76,7 @@ class BmsNode(Node):
 
         # initialize state of charge filter
         if self._filter == None:
-            soc_kf = StateOfChargeFilter(
-                P=np.diag([1e-6, 1e-6, 1.0]),     # state covariance matrix (3x3)
-                Q=np.diag([1e-6, 1e-6, 1e-6]),    # process noise covariance (3x3)
-                R=np.array([[2.0]]),              # measurement noise covariance (1x1)
-                H=np.array([[1.0, -1.0, -1.0]]),  # measurement matrix (1x3)
-                ocv=voltage_measured,
-                dt=self.dt,
-            )
-            q_init=self.initial_capacity * self._soh
-
-            self.get_logger().info(f'Initialize SoC Filter: initial SoC={soc_kf.x[0]}')
-            self.get_logger().info(f'Initialize Capacity Filter: initial capacity={q_init}')
-
-            soh_kf = CapacityFilter(Q_init=q_init)
-            self._filter = DualKalmanFilter(soc_kf, soh_kf)
+            self.filter = self.init_filter(voltage_measured)
 
         soc, capacity = self._filter.step(current_measured, voltage_measured)
 
@@ -97,7 +104,6 @@ class BmsNode(Node):
         enhanced_msg.charge = soc * capacity
         
         self.enhanced_battery_publisher.publish(enhanced_msg)
-
         
         self._msg_counter += 1
         if self._msg_counter % 10 == 0:

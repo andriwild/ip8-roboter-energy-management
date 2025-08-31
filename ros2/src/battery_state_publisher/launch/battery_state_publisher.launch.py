@@ -13,7 +13,6 @@ def generate_launch_description():
         description='Use simulation time'
     )
     
-    # Battery Monitor Node
     battery_monitor_node = Node(
         package='battery_state_publisher',
         executable='battery_state_publisher',
