@@ -11,61 +11,23 @@ from bms.soh_kalman_filter import CapacityFilter
 
 FILTER_CONFIGS = [
     {
-        'name': 'Standard',
-        'color': 'blue',
+        'name': 'R = 4.0, Q = 1e-6 * eye(3)',
+        'color': 'black',
         'linestyle': '-',
         'P': np.diag([1e-6, 1e-6, 1.0]),
-        'Q': np.diag([1e-4, 1e-4, 1e-4]),
-        'R': np.array([[0.7]]),
+        'Q': np.diag([1e-6, 1e-6, 1e-6]),
+        'R': np.array([[4.0]]),
         'H': np.array([[1.0, -1.0, -1.0]]),
         'soh_Q': 1e-5,
         'soh_R': 5e-3,
         'soh_P': 1e-8,
+        'soc_init': 1.0,
         'capacity_ah': 44.0
     },
-    # {
-    #     'name': 'High Process Noise',
-    #     'color': 'green',
-    #     'linestyle': '--',
-    #     'P': np.diag([1e-6, 1e-6, 1.0]),
-    #     'Q': np.diag([0.5e-5, 0.5e-5, 0.5e-5]),
-    #     'R': np.array([[2.0]]),
-    #     'H': np.array([[1.0, -1.0, -1.0]]),
-    #     'soh_Q': 1e-5,
-    #     'soh_R': 5e-3,
-    #     'soh_P': 1e-8,
-    #     'capacity_ah': 44.0
-    # },
-    # {
-    #     'name': 'Low Measurement Noise',
-    #     'color': 'purple',
-    #     'linestyle': '-.',
-    #     'P': np.diag([1e-6, 1e-6, 1.0]),
-    #     'Q': np.diag([0.5e-5, 0.5e-5, 0.5e-5]),
-    #     'R': np.array([[1.5]]),
-    #     'H': np.array([[1.0, -1.0, -1.0]]),
-    #     'soh_Q': 1e-5,
-    #     'soh_R': 5e-3,
-    #     'soh_P': 1e-8,
-    #     'capacity_ah': 44.0
-    # },
-    # {
-    #     'name': 'Aggressive Tuning',
-    #     'color': 'orange',
-    #     'linestyle': ':',
-    #     'P': np.diag([1e-4, 1e-4, 0.5]),
-    #     'Q': np.diag([0.5e-5, 0.5e-5, 0.5e-5]),
-    #     'R': np.array([[1.0]]),
-    #     'H': np.array([[1.0, -1.0, -1.0]]),
-    #     'soh_Q': 1e-4,
-    #     'soh_R': 4e-3,
-    #     'soh_P': 1e-6,
-    #     'capacity_ah': 44.0
-    # },
     {
-        'name': 'High Process Noise',
-        'color': 'black',
-        'linestyle': '--',
+        'name': 'R = 2.0, Q = 1e-6 * eye(3)',
+        'color': 'dimgray',
+        'linestyle': '-',
         'P': np.diag([1e-6, 1e-6, 1.0]),
         'Q': np.diag([1e-6, 1e-6, 1e-6]),
         'R': np.array([[2.0]]),
@@ -73,83 +35,90 @@ FILTER_CONFIGS = [
         'soh_Q': 1e-5,
         'soh_R': 5e-3,
         'soh_P': 1e-8,
+        'soc_init': 1.0,
         'capacity_ah': 44.0
     },
     {
-        'name': 'High Process Noise',
-        'color': 'black',
-        'linestyle': ':',
-        'P': np.diag([1e-6, 1e-6, 1.0]),
-        'Q': np.diag([1e-6, 1e-6, 1e-6]),
-        'R': np.array([[4.0]]),
-        'H': np.array([[1.0, -1.0, -1.0]]),
-        'soh_Q': 1e-5,
-        'soh_R': 5e-3,
-        'soh_P': 1e-8,
-        'capacity_ah': 44.0
-    },
-    {
-        'name': 'High Process Noise',
-        'color': 'orange',
+        'name': 'R = 1.0, Q = 1e-6 * eye(3)',
+        'color': 'gray',
         'linestyle': '-',
         'P': np.diag([1e-6, 1e-6, 1.0]),
-        'Q': np.diag([1e-7, 1e-7, 1e-7]),
-        'R': np.array([[4.0]]),
+        'Q': np.diag([1e-6, 1e-6, 1e-6]),
+        'R': np.array([[1.0]]),
         'H': np.array([[1.0, -1.0, -1.0]]),
         'soh_Q': 1e-5,
         'soh_R': 5e-3,
         'soh_P': 1e-8,
+        'soc_init': 1.0,
         'capacity_ah': 44.0
     },
     {
-        'name': 'High Process Noise',
-        'color': 'orange',
-        'linestyle': ':',
-        'P': np.diag([1e-6, 1e-6, 1.0]),
-        'Q': np.diag([1e-7, 1e-7, 1e-7]),
-        'R': np.array([[3.0]]),
-        'H': np.array([[1.0, -1.0, -1.0]]),
-        'soh_Q': 1e-5,
-        'soh_R': 5e-3,
-        'soh_P': 1e-8,
-        'capacity_ah': 44.0
-    },
-    {
-        'name': 'Low Measurement Noise',
-        'color': 'gray',
-        'linestyle': '-.',
+        'name': 'R = 0.7, Q = 1e-6 * eye(3)',
+        'color': 'lightgray',
+        'linestyle': '-',
         'P': np.diag([1e-6, 1e-6, 1.0]),
         'Q': np.diag([1e-6, 1e-6, 1e-6]),
-        'R': np.array([[1.5]]),
+        'R': np.array([[0.7]]),
         'H': np.array([[1.0, -1.0, -1.0]]),
         'soh_Q': 1e-5,
         'soh_R': 5e-3,
         'soh_P': 1e-8,
+        'soc_init': 1.0,
         'capacity_ah': 44.0
     },
-    # {
-    #     'name': 'Aggressive Tuning',
-    #     'color': 'pink',
-    #     'linestyle': ':',
-    #     'P': np.diag([1e-4, 1e-4, 0.5]),
-    #     'Q': np.diag([1e-6, 1e-6, 1e-6]),
-    #     'R': np.array([[1.0]]),
-    #     'H': np.array([[1.0, -1.0, -1.0]]),
-    #     'soh_Q': 1e-4,
-    #     'soh_R': 4e-3,
-    #     'soh_P': 1e-6,
-    #     'capacity_ah': 44.0
-    # }
+    {
+        'name': 'R = 2.0, Q = 1e-5 * eye(3)',
+        'color': 'purple',
+        'linestyle': '-',
+        'P': np.diag([1e-6, 1e-6, 1.0]),
+        'Q': np.diag([1e-5, 1e-5, 1e-5]),
+        'R': np.array([[2.0]]),
+        'H': np.array([[1.0, -1.0, -1.0]]),
+        'soh_Q': 1e-5,
+        'soh_R': 5e-3,
+        'soh_P': 1e-8,
+        'soc_init': 1.0,
+        'capacity_ah': 44.0
+    },
+    {
+        'name': 'R = 1.0, Q = 1e-5 * eye(3)',
+        'color': 'm',
+        'linestyle': '-',
+        'P': np.diag([1e-6, 1e-6, 1.0]),
+        'Q': np.diag([1e-5, 1e-5, 1e-5]),
+        'R': np.array([[1.0]]),
+        'H': np.array([[1.0, -1.0, -1.0]]),
+        'soh_Q': 1e-5,
+        'soh_R': 5e-3,
+        'soh_P': 1e-8,
+        'soc_init': 1.0,
+        'capacity_ah': 44.0
+    },
+    {
+        'name': 'R = 0.7, Q = 1e-5 * eye(3)',
+        'color': 'magenta',
+        'linestyle': '-',
+        'P': np.diag([1e-6, 1e-6, 1.0]),
+        'Q': np.diag([1e-5, 1e-5, 1e-5]),
+        'R': np.array([[0.7]]),
+        'H': np.array([[1.0, -1.0, -1.0]]),
+        'soh_Q': 1e-5,
+        'soh_R': 5e-3,
+        'soh_P': 1e-8,
+        'soc_init': 1.0,
+        'capacity_ah': 44.0
+    },
+
 ]
 
-def create_filter_from_config(config, initial_soc, dt):
+def create_filter_from_config(config, dt):
     ekf = StateOfChargeFilter(
         P=config['P'],
         Q=config['Q'],
         R=config['R'],
         H=config['H'],
         dt=dt,
-        initial_soc=initial_soc
+        initial_soc=config["soc_init"]
     )
     
     soh_kf = CapacityFilter(
@@ -192,15 +161,12 @@ def process_and_plot(voltage_file, current_file, soc_ref_file, soc_true_file=Non
     print(f"Processing {min_length} data points with {len(FILTER_CONFIGS)} filter configurations...")
     
     time = np.arange(min_length) * dt
-    
-    initial_soc = soc_ref_data.iloc[0]['soc_ref'] if soc_ref_data is not None else 0.4
-    initial_soc = 0.5
-    
+
     filters = []
     results = []
     
     for config in FILTER_CONFIGS:
-        kf = create_filter_from_config(config, initial_soc, dt)
+        kf = create_filter_from_config(config, dt)
         filters.append(kf)
         results.append({
             'name': config['name'],
@@ -224,21 +190,21 @@ def process_and_plot(voltage_file, current_file, soc_ref_file, soc_true_file=Non
             print(f"Processed {i}/{min_length} samples...")
     
     plt.style.use("seaborn-v0_8-whitegrid")
-    fig, axes = plt.subplots(4, 1, figsize=(14, 10), sharex=True)
+    fig, axes = plt.subplots(1, 1, figsize=(14, 10), sharex=True)
     
-    axes[0].plot(time, current_data['current'], 'g-', linewidth=0.5)
-    axes[0].set_ylabel('Current (A)')
-    axes[0].set_title('Battery Current')
-    axes[0].grid(True, alpha=0.3)
-    axes[0].axhline(y=0, color='k', linestyle='--', alpha=0.5)
+    # axes[0].plot(time, current_data['current'], 'g-', linewidth=0.5)
+    # axes[0].set_ylabel('Current (A)')
+    # axes[0].set_title('Battery Current')
+    # axes[0].grid(True, alpha=0.3)
+    # axes[0].axhline(y=0, color='k', linestyle='--', alpha=0.5)
     
-    axes[1].plot(time, voltage_data['voltage'], 'b-', linewidth=0.5)
-    axes[1].set_ylabel('Voltage (V)')
-    axes[1].set_title('Battery Voltage')
-    axes[1].grid(True, alpha=0.3)
+    # axes[1].plot(time, voltage_data['voltage'], 'b-', linewidth=0.5)
+    # axes[1].set_ylabel('Voltage (V)')
+    # axes[1].set_title('Battery Voltage')
+    # axes[1].grid(True, alpha=0.3)
     
     for result in results:
-        axes[2].plot(time, result['soc'], 
+        axes.plot(time, result['soc'], 
                     color=result['color'], 
                     linestyle=result['linestyle'],
                     linewidth=1.5, 
@@ -246,31 +212,33 @@ def process_and_plot(voltage_file, current_file, soc_ref_file, soc_true_file=Non
                     alpha=0.8)
     
     if soc_ref_data is not None:
-        axes[2].plot(time, soc_ref_data['soc_ref'], 'r--', 
-                    linewidth=1.5, label='MATLAB Reference', alpha=0.7)
+        axes.plot(time, soc_ref_data['soc_ref'], 'b-', 
+                    linewidth=1.5, label='SOC', alpha=0.7)
     if soc_true_data is not None:
-        axes[2].plot(time, soc_true_data['soc_true'], 'k--', 
+        axes.plot(time, soc_true_data['soc_true'], 'k--', 
                     linewidth=2, label='SOC True', alpha=0.6)
     
-    axes[2].set_ylabel('SOC')
-    axes[2].set_title('State of Charge Comparison')
-    axes[2].legend(loc='best', ncol=2, fontsize=8)
-    axes[2].grid(True, alpha=0.3)
-    axes[2].set_ylim(0, 1)
+    axes.set_ylabel('SOC')
+    axes.set_title('State of Charge Comparison')
+    axes.legend(loc='best', ncol=2, fontsize=16)
+    axes.grid(True, alpha=0.3)
+    axes.set_ylim(0, 1)
+
+    axes.set_xlabel('Time (s)')
     
-    for result in results:
-        axes[3].plot(time, result['soh'], 
-                    color=result['color'],
-                    linestyle=result['linestyle'],
-                    linewidth=1.5, 
-                    label=f'{result["name"]}',
-                    alpha=0.8)
+    # for result in results:
+    #     axes[3].plot(time, result['soh'], 
+    #                 color=result['color'],
+    #                 linestyle=result['linestyle'],
+    #                 linewidth=1.5, 
+    #                 label=f'{result["name"]}',
+    #                 alpha=0.8)
     
-    axes[3].set_ylabel('SOH (Capacity in Ah)')
-    axes[3].set_xlabel('Time (s)')
-    axes[3].set_title('State of Health - Battery Capacity Estimation')
-    axes[3].legend(loc='best', ncol=2, fontsize=8)
-    axes[3].grid(True, alpha=0.3)
+    # axes[3].set_ylabel('SOH (Capacity in Ah)')
+    # axes[3].set_xlabel('Time (s)')
+    # axes[3].set_title('State of Health - Battery Capacity Estimation')
+    # axes[3].legend(loc='best', ncol=2, fontsize=8)
+    # axes[3].grid(True, alpha=0.3)
     
     plt.tight_layout()
     plt.show()
@@ -278,9 +246,9 @@ def process_and_plot(voltage_file, current_file, soc_ref_file, soc_true_file=Non
 
 if __name__ == "__main__":
     dir = "./src/bms/resource"
-    #dir = "/home/andri/repos/ip8-roboter-energy-management/ros2/src/bms/resource/test_realistic_current_profile"
-    #dir = "/home/andri/repos/ip8-roboter-energy-management/ros2/src/bms/test/export"
-    dir = "/home/andri/repos/ip8-roboter-energy-management/ros2/src/bms/test/long_term"
+    dir = "./src/bms/resource/test_realistic_current_profile"
+    #dir = "./src/bms/test/export"
+    dir = "./src/bms/test/lt_export"
     
     voltage_file = f"{dir}/export_u.csv"
     current_file = f"{dir}/export_i.csv"
