@@ -5,6 +5,15 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QTimer
 from PyQt5.QtGui import QPalette, QColor, QFont
 from .widgets import BatteryWidget, MetricWidget, ChargingIndicator
 
+colors = [
+    "#E8A5A5",
+    "#D4B5F0",
+    "#A8E6C8",
+    "#FFD49C",
+    "#9CC5FF",
+    "#FFF285" 
+]
+
 class BatteryDashboard(QWidget):
     data_received = pyqtSignal(dict)
     
@@ -34,7 +43,7 @@ class BatteryDashboard(QWidget):
         title.setStyleSheet("""
             font-size: 24px;
             font-weight: bold;
-            color: #00ff88;
+            color: #E2E2E2;
             padding: 10px;
             letter-spacing: 2px;
         """)
@@ -58,12 +67,12 @@ class BatteryDashboard(QWidget):
         metrics_layout = QGridLayout()
         metrics_layout.setSpacing(20)
 
-        self.time_widget    = MetricWidget('Time',     'h',  '#00aaff')
-        self.range_widget   = MetricWidget('Distance', 'm',  '#ffaa00')
-        self.voltage_widget = MetricWidget('Voltage',  'V',  '#88ff00')
-        self.current_widget = MetricWidget('Current',  'A',  '#aa00ff')
-        self.power_widget   = MetricWidget('Power',    'Wh', '#ff00aa')
-        self.soh_widget     = MetricWidget('SoH',      '%',  '#00ff88')
+        self.time_widget    = MetricWidget('Time',     'h',  colors[0])
+        self.range_widget   = MetricWidget('Distance', 'm',  colors[1])
+        self.voltage_widget = MetricWidget('Voltage',  'V',  colors[2])
+        self.current_widget = MetricWidget('Current',  'A',  colors[3])
+        self.power_widget   = MetricWidget('Power',    'Wh', colors[4])
+        self.soh_widget     = MetricWidget('SoH',      '%',  colors[5])
 
         metrics_layout.addWidget(self.time_widget,     0, 0)
         metrics_layout.addWidget(self.range_widget, 0, 1)

@@ -79,7 +79,6 @@ class BatteryMonitorNode(Node):
             'soh': round(soh * 100)
         }
         
-        self.log_battery_data(battery_data)
         self.dashboard.update_battery_data(battery_data)
 
 
