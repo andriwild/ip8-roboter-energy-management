@@ -23,8 +23,8 @@ class BatteryMonitorNode(Node):
         self.dashboard = dashboard
 
         self._V_nominal = 12 # nominal voltage of battery (V)
-        self._P_avg = 60     # average power consumption for drive (Wh / m)
-        self._v_avg = 4      # average speed (m/s)
+        self._P_avg = 135     # average power consumption for drive (W)
+        self._v_avg = 3      # average speed (km/h)
         self._safety_factor = 0.95 # unpredictable things
 
         self._time_stack = deque(maxlen=STACK_SIZE)
@@ -53,9 +53,9 @@ class BatteryMonitorNode(Node):
         
 
     def estimate_remaining_range(self, soc, capacity) -> float:
-        energy_remaining = soc * self._V_nominal * capacity
-        range = energy_remaining / self._P_avg
-        return range * self._safety_factor
+        energy_remaining = (soc / 100) * self._V_nominal * capacity
+        rem_time = energy_remaining / self._P_avg
+        return (rem_time * self._safety_factor) * self._v_avg * 1000
 
 
     def battery_callback(self, msg):
